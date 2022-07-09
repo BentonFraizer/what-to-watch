@@ -6,6 +6,7 @@ const Film = {
   Name: 'The Grand Budapest Hotel',
   Genre: 'Drama',
   Year: 2014,
+  Repeat: 20
 } as const;
 
 const root = ReactDOM.createRoot(
@@ -18,6 +19,7 @@ root.render(
       filmName = {Film.Name}
       filmGenre = {Film.Genre}
       filmYear = {Film.Year}
+      filmRepeat = {Film.Repeat}
     />
   </React.StrictMode>,
 );

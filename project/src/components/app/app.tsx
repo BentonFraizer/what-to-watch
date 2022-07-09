@@ -4,14 +4,16 @@ type AppScreenProps = {
   filmName: string;
   filmGenre: string;
   filmYear: number;
+  filmRepeat: number
 }
 
-function App(filmName: AppScreenProps, filmGenre: AppScreenProps, filmYear: AppScreenProps): JSX.Element {
+function App(filmName: AppScreenProps, filmGenre: AppScreenProps, filmYear: AppScreenProps, filmRepeat: AppScreenProps): JSX.Element {
   return (
     <MainScreen
       {...filmName}
       {...filmGenre}
       {...filmYear}
+      {...filmRepeat}
     />
   );
 }

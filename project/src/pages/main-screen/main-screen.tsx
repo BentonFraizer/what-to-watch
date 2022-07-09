@@ -4,9 +4,20 @@ type MainScreenProps = {
   filmName: string;
   filmGenre: string;
   filmYear: number;
+  filmRepeat: number
 }
 
-function MainScreen({filmName, filmGenre, filmYear}: MainScreenProps): JSX.Element {
+//Функция для создания списка из 20 React-компонентов с карточкой фильма
+const getFilmCardsList = (amount: number, filmCard: JSX.Element): JSX.Element[] => {
+  const films = [];
+  for (let i = 0; i < amount; i++) {
+    films.push(filmCard);
+  }
+
+  return films;
+};
+
+function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -108,26 +119,7 @@ function MainScreen({filmName, filmGenre, filmYear}: MainScreenProps): JSX.Eleme
           </ul>
 
           <div className="catalog__films-list">
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
-            <SmallFilmCard/>
+            {getFilmCardsList(filmRepeat, <SmallFilmCard/>)}
           </div>
 
           <div className="catalog__more">
@@ -135,20 +127,6 @@ function MainScreen({filmName, filmGenre, filmYear}: MainScreenProps): JSX.Eleme
           </div>
         </section>
       </div>
-
-      <footer className="page-footer">
-        <div className="logo">
-          <a className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
     </>
   );
 }
