@@ -1,4 +1,4 @@
-// import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import React from 'react';
 import { Film } from '../../types';
 
@@ -116,15 +116,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
               films.map((film) =>
                 (
                   <React.Fragment key={film.id}>
-                    <article className="small-film-card catalog__films-card">
-                      <div className="small-film-card__image">
-                        <img src={film.previewImage} alt="Snatch" width="280" height="175" />
-                      </div>
-                      <h3 className="small-film-card__title">
-                        <a className="small-film-card__link" href="film-page.html">{film.name}</a>
-                      </h3>
-                      <p className='visually-hidden'></p>
-                    </article>
+                    <SmallFilmCard filmData={film}/>
                   </React.Fragment>
                 )
               )
