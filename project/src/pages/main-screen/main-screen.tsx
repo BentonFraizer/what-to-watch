@@ -1,6 +1,7 @@
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import React from 'react';
 import { Film } from '../../types';
+import Footer from '../../components/footer/footer';
 
 type MainScreenProps = {
   films: Film[];
@@ -127,6 +128,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
+        <Footer/>
       </div>
     </>
   );
