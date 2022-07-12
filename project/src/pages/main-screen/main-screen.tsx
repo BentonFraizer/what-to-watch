@@ -1,23 +1,16 @@
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
+// import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import React from 'react';
+import { Film } from '../../types';
 
 type MainScreenProps = {
-  filmName: string;
-  filmGenre: string;
-  filmYear: number;
-  filmRepeat: number
+  films: Film[];
+  promoFilm: Film;
 }
 
-//Функция для создания списка из 20 React-компонентов с карточкой фильма
-const getFilmCardsList = (amount: number, filmCard: JSX.Element): JSX.Element[] => {
-  const films = [];
-  for (let i = 0; i < amount; i++) {
-    films.push(filmCard);
-  }
+function MainScreen(props: MainScreenProps): JSX.Element {
+  const films: Film[] = props.films;
+  const {name, genre, released} = props.promoFilm;
 
-  return films;
-};
-
-function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -29,7 +22,7 @@ function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <a href="#section" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -43,7 +36,7 @@ function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a href="#section" className="user-block__link">Sign out</a>
             </li>
           </ul>
         </header>
@@ -55,10 +48,10 @@ function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmGenre}</span>
-                <span className="film-card__year">{filmYear}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -87,39 +80,55 @@ function MainScreen({filmName, filmGenre, filmYear, filmRepeat}: MainScreenProps
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
+              <a href="#section" className="catalog__genres-link">All genres</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
+              <a href="#section" className="catalog__genres-link">Comedies</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
+              <a href="#section" className="catalog__genres-link">Crime</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
+              <a href="#section" className="catalog__genres-link">Documentary</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
+              <a href="#section" className="catalog__genres-link">Dramas</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
+              <a href="#section" className="catalog__genres-link">Horror</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
+              <a href="#section" className="catalog__genres-link">Kids & Family</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
+              <a href="#section" className="catalog__genres-link">Romance</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
+              <a href="#section" className="catalog__genres-link">Sci-Fi</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
+              <a href="#section" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
 
           <div className="catalog__films-list">
-            {getFilmCardsList(filmRepeat, <SmallFilmCard/>)}
+            {
+              films.map((film) =>
+                (
+                  <React.Fragment key={film.id}>
+                    <article className="small-film-card catalog__films-card">
+                      <div className="small-film-card__image">
+                        <img src={film.previewImage} alt="Snatch" width="280" height="175" />
+                      </div>
+                      <h3 className="small-film-card__title">
+                        <a className="small-film-card__link" href="film-page.html">{film.name}</a>
+                      </h3>
+                      <p className='visually-hidden'></p>
+                    </article>
+                  </React.Fragment>
+                )
+              )
+            }
           </div>
 
           <div className="catalog__more">
