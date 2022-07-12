@@ -23,7 +23,7 @@ function AddReviewScreen(): JSX.Element {
                 <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <a href="#section" className="breadcrumbs__link">Add review</a>
               </li>
             </ul>
           </nav>
@@ -35,7 +35,7 @@ function AddReviewScreen(): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a href="#section" className="user-block__link">Sign out</a>
             </li>
           </ul>
         </header>

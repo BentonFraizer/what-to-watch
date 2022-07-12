@@ -2,6 +2,7 @@ import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import React from 'react';
 import { Film } from '../../types';
 import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 
 type MainScreenProps = {
   films: Film[];
@@ -21,26 +22,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a href="#section" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#section" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
