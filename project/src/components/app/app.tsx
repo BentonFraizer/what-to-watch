@@ -6,6 +6,7 @@ import MyListScreen from '../../pages/my-list/my-list';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Film } from '../../types';
 
 type AppProps = {
@@ -45,6 +46,10 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.Player}
           element={<PlayerScreen />}
+        />
+        <Route
+          path='*'
+          element={<NotFoundScreen />}
         />
       </Routes>
     </BrowserRouter>
