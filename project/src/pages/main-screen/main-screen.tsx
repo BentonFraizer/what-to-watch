@@ -5,12 +5,12 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
 type MainScreenProps = {
-  films: Film[];
+  filmsList: Film[];
   promoFilm: Film;
 }
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const films: Film[] = props.films;
+  const films: Film[] = props.filmsList;
   const {name, genre, released} = props.promoFilm;
 
   return (

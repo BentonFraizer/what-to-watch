@@ -11,7 +11,7 @@ import { Film } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
-  films: Film[];
+  filmsList: Film[];
   promoFilm: Film;
 }
 
@@ -23,8 +23,7 @@ function App(props: AppProps): JSX.Element {
           path={AppRoute.Main}
           element={
             <MainScreen
-              films = {props.films}
-              promoFilm = {props.promoFilm}
+              {...props}
             />
           }
         />
