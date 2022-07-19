@@ -11,7 +11,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      {...{filmsList, promoFilm}}
+      {...{
+        filmsList,
+        promoFilm
+      }}
     />
   </React.StrictMode>,
 );

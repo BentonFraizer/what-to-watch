@@ -35,7 +35,7 @@ function App(props: AppProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={AuthorizationStatus.NoAuth}
             >
               <MyListScreen />
             </PrivateRoute>
