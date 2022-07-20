@@ -2,6 +2,7 @@ import FilmsList from '../../components/films-list/films-list';
 import { Film } from '../../types';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
   filmsList: Film[];
@@ -31,7 +32,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a href="#section" className="user-block__link">Sign out</a>
+              <Link to="/" className="user-block__link">Sign out</Link>
             </li>
           </ul>
         </header>
@@ -75,34 +76,34 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#section" className="catalog__genres-link">All genres</a>
+              <Link to="/" className="catalog__genres-link">All genres</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Comedies</a>
+              <Link to="/" className="catalog__genres-link">Comedies</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Crime</a>
+              <Link to="/" className="catalog__genres-link">Crime</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Documentary</a>
+              <Link to="/" className="catalog__genres-link">Documentary</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Dramas</a>
+              <Link to="/" className="catalog__genres-link">Dramas</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Horror</a>
+              <Link to="/" className="catalog__genres-link">Horror</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Kids & Family</a>
+              <Link to="/" className="catalog__genres-link">Kids & Family</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Romance</a>
+              <Link to="/" className="catalog__genres-link">Romance</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Sci-Fi</a>
+              <Link to="/" className="catalog__genres-link">Sci-Fi</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Thrillers</a>
+              <Link to="/" className="catalog__genres-link">Thrillers</Link>
             </li>
           </ul>
 

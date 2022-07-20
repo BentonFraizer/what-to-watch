@@ -4,7 +4,7 @@ import Logo from '../../components/logo/logo';
 
 function NotFoundScreen(): JSX.Element {
   return (
-    <div className='user-page'>
+    <div className="user-page">
       <header className="page-header film-card__head" style={{maxWidth: 'none', margin: '0'}}>
         <Logo/>
 
@@ -20,11 +20,11 @@ function NotFoundScreen(): JSX.Element {
         </ul>
       </header>
 
-      <div className='user-page__content'>
-        <div className='user-page__title' style={{fontSize:'50px', color:'#dfcf77'}}>
+      <div className="user-page__content">
+        <div className="user-page__title" style={{fontSize:'50px', color:'#dfcf77'}}>
           <b>404</b>
           <p>Page not found</p>
-          <Link to='/' style={{fontSize: '30px', color: 'white'}} >
+          <Link to="/" style={{fontSize: '30px', color: 'white'}} >
             Go to Main page
           </Link>
         </div>

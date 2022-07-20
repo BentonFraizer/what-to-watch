@@ -38,7 +38,9 @@ function App(props: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyListScreen />
+              <MyListScreen
+                {...props}
+              />
             </PrivateRoute>
           }
         />
@@ -48,11 +50,19 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewScreen />}
+          element={
+            <AddReviewScreen
+              {...props}
+            />
+          }
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerScreen />}
+          element={
+            <PlayerScreen
+              {...props}
+            />
+          }
         />
         <Route
           path='*'
