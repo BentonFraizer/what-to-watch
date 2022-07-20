@@ -7,12 +7,13 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Film } from '../../types';
+import { Film, Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   filmsList: Film[];
   promoFilm: Film;
+  reviewsList: Review[];
 }
 
 function App(props: AppProps): JSX.Element {
@@ -35,7 +36,7 @@ function App(props: AppProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
               <MyListScreen />
             </PrivateRoute>

@@ -1,5 +1,4 @@
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import React from 'react';
+import FilmsList from '../../components/films-list/films-list';
 import { Film } from '../../types';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -10,7 +9,7 @@ type MainScreenProps = {
 }
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const films: Film[] = props.filmsList;
+  const filmsList: Film[] = props.filmsList;
   const {name, genre, released} = props.promoFilm;
 
   return (
@@ -107,17 +106,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              films.map((film) =>
-                (
-                  <React.Fragment key={film.id}>
-                    <SmallFilmCard filmData={film}/>
-                  </React.Fragment>
-                )
-              )
-            }
-          </div>
+          <FilmsList {...{filmsList}}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

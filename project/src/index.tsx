@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import filmsList from './mocks/films';
 import promoFilm from './mocks/promo-film';
+import reviewsList from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -13,7 +14,8 @@ root.render(
     <App
       {...{
         filmsList,
-        promoFilm
+        promoFilm,
+        reviewsList
       }}
     />
   </React.StrictMode>,
