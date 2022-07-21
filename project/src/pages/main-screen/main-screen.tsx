@@ -1,16 +1,16 @@
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import React from 'react';
+import FilmsList from '../../components/films-list/films-list';
 import { Film } from '../../types';
+import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
-  films: Film[];
+  filmsList: Film[];
   promoFilm: Film;
 }
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const films: Film[] = props.films;
+  const filmsList: Film[] = props.filmsList;
   const {name, genre, released} = props.promoFilm;
 
   return (
@@ -22,20 +22,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <Logo/>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#section" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -76,48 +63,38 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#section" className="catalog__genres-link">All genres</a>
+              <Link to="/" className="catalog__genres-link">All genres</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Comedies</a>
+              <Link to="/" className="catalog__genres-link">Comedies</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Crime</a>
+              <Link to="/" className="catalog__genres-link">Crime</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Documentary</a>
+              <Link to="/" className="catalog__genres-link">Documentary</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Dramas</a>
+              <Link to="/" className="catalog__genres-link">Dramas</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Horror</a>
+              <Link to="/" className="catalog__genres-link">Horror</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Kids & Family</a>
+              <Link to="/" className="catalog__genres-link">Kids & Family</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Romance</a>
+              <Link to="/" className="catalog__genres-link">Romance</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Sci-Fi</a>
+              <Link to="/" className="catalog__genres-link">Sci-Fi</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#section" className="catalog__genres-link">Thrillers</a>
+              <Link to="/" className="catalog__genres-link">Thrillers</Link>
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              films.map((film) =>
-                (
-                  <React.Fragment key={film.id}>
-                    <SmallFilmCard filmData={film}/>
-                  </React.Fragment>
-                )
-              )
-            }
-          </div>
+          <FilmsList {...{filmsList}}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

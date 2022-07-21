@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import filmsList from './mocks/films-list';
+import filmsList from './mocks/films';
 import promoFilm from './mocks/promo-film';
+import reviewsList from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,8 +12,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      films = {filmsList}
-      promoFilm = {promoFilm}
+      {...{
+        filmsList,
+        promoFilm,
+        reviewsList
+      }}
     />
   </React.StrictMode>,
 );

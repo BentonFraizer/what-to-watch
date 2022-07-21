@@ -7,12 +7,13 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Film } from '../../types';
+import { Film, Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
-  films: Film[];
+  filmsList: Film[];
   promoFilm: Film;
+  reviewsList: Review[];
 }
 
 function App(props: AppProps): JSX.Element {
@@ -23,8 +24,7 @@ function App(props: AppProps): JSX.Element {
           path={AppRoute.Main}
           element={
             <MainScreen
-              films = {props.films}
-              promoFilm = {props.promoFilm}
+              {...props}
             />
           }
         />
@@ -38,7 +38,9 @@ function App(props: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyListScreen />
+              <MyListScreen
+                {...props}
+              />
             </PrivateRoute>
           }
         />
@@ -48,11 +50,19 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewScreen />}
+          element={
+            <AddReviewScreen
+              {...props}
+            />
+          }
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerScreen />}
+          element={
+            <PlayerScreen
+              {...props}
+            />
+          }
         />
         <Route
           path='*'

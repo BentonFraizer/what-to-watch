@@ -1,19 +1,26 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { Film } from '../../types';
+import React, {useState} from 'react';
 
 type SmallFilmCardProps = {
   filmData: Film;
 }
 
 function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
-  const {name, previewImage} = props.filmData;
+  const {name, previewImage, id} = props.filmData;
+  const [activeCardId, setActiveCardId] = useState(0);
+
+  const path = `/films/${id}`;
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card"
+      onMouseEnter = {() => setActiveCardId(id)}
+      onMouseLeave = {() => setActiveCardId(activeCardId)}
+    >
       <div className="small-film-card__image">
         <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{name}</a>
+        <Link className="small-film-card__link" to={path}>{name}</Link>
       </h3>
     </article>
   );

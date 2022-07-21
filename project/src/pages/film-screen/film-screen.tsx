@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
+import Header from '../../components/header/header';
 
 function FilmScreen(): JSX.Element {
   return (
@@ -12,20 +13,7 @@ function FilmScreen(): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href="#section" className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -49,7 +37,7 @@ function FilmScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to="/films/5/review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -65,13 +53,13 @@ function FilmScreen(): JSX.Element {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="#section" className="film-nav__link">Overview</a>
+                    <Link to="/films/5" className="film-nav__link">Overview</Link>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#section" className="film-nav__link">Details</a>
+                    <Link to="/films/5" className="film-nav__link">Details</Link>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#section" className="film-nav__link">Reviews</a>
+                    <Link to="/films/5" className="film-nav__link">Reviews</Link>
                   </li>
                 </ul>
               </nav>
@@ -108,7 +96,7 @@ function FilmScreen(): JSX.Element {
                 <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+                <Link className="small-film-card__link" to="/films/5">Fantastic Beasts: The Crimes of Grindelwald</Link>
               </h3>
             </article>
 
@@ -117,7 +105,7 @@ function FilmScreen(): JSX.Element {
                 <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
+                <Link className="small-film-card__link" to="/films/5">Bohemian Rhapsody</Link>
               </h3>
             </article>
 
@@ -126,7 +114,7 @@ function FilmScreen(): JSX.Element {
                 <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
+                <Link className="small-film-card__link" to="/films/5">Macbeth</Link>
               </h3>
             </article>
 
@@ -135,7 +123,7 @@ function FilmScreen(): JSX.Element {
                 <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
+                <Link className="small-film-card__link" to="/films/5">Aviator</Link>
               </h3>
             </article>
           </div>
