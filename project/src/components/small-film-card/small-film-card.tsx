@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Film } from '../../types';
-import React, {useState} from 'react';
+import { useState } from 'react';
 
 type SmallFilmCardProps = {
   filmData: Film;
@@ -8,13 +8,13 @@ type SmallFilmCardProps = {
 
 function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
   const {name, previewImage, id} = props.filmData;
-  const [activeCardId, setActiveCardId] = useState(0);
+  const [, setActiveCardId] = useState<number | null>(null);
 
   const path = `/films/${id}`;
   return (
     <article className="small-film-card catalog__films-card"
       onMouseEnter = {() => setActiveCardId(id)}
-      onMouseLeave = {() => setActiveCardId(activeCardId)}
+      onMouseLeave = {() => setActiveCardId(null)}
     >
       <div className="small-film-card__image">
         <img src={previewImage} alt={name} width="280" height="175" />

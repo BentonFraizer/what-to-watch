@@ -1,4 +1,3 @@
-import React from 'react';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import { Film } from '../../types';
 
@@ -14,9 +13,7 @@ function FilmsList(props: FilmsListProps): JSX.Element {
       {
         films.map((film) =>
           (
-            <React.Fragment key={film.id}>
-              <SmallFilmCard filmData={film}/>
-            </React.Fragment>
+            <SmallFilmCard filmData={film} key={film.id}/>
           )
         )
       }
