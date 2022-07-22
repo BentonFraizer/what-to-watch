@@ -1,4 +1,5 @@
 import { Film } from '../../types';
+import { useParams } from 'react-router-dom';
 
 type PlayerScreenProps = {
   filmsList: Film[];
@@ -6,7 +7,20 @@ type PlayerScreenProps = {
 
 function PlayerScreen(props: PlayerScreenProps): JSX.Element {
   const filmsList = props.filmsList;
-  const film = filmsList[5];
+
+  const {id} = useParams();
+
+  const checkIsTypeOfString = (variableForCheck: string | undefined): number => {
+    if (typeof(variableForCheck) !== 'undefined') {
+      const neededId = parseInt(variableForCheck, 10);
+      return neededId;
+    }
+    return -1;
+  };
+
+  const checkedId = checkIsTypeOfString(id);
+
+  const film = filmsList[checkedId - 1];
   const {videoLink, posterImage} = film;
 
   return (
