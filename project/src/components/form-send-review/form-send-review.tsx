@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ratingNumbers } from '../../consts';
+import { RATING_NUMBERS } from '../../consts';
 
 function FormSendReview() {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ function FormSendReview() {
         <div className="rating">
           <div className="rating__stars">
             {
-              ratingNumbers.map((ratingNumber) => (
+              RATING_NUMBERS.map((ratingNumber) => (
                 <React.Fragment key={ratingNumber}>
                   <input key={ratingNumber} onChange={handleOptionChange} className="rating__input" id={`star-${ratingNumber}`} type="radio" name="rating" value={ratingNumber}/>
                   <label className="rating__label" htmlFor={`star-${ratingNumber}`}>{`Rating ${ratingNumber}`}</label>

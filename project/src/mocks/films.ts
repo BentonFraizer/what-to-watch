@@ -22,7 +22,7 @@ const filmsList: Film[] = [
     'id': 1,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'Gangs of new york',
@@ -45,7 +45,7 @@ const filmsList: Film[] = [
     'id': 2,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'War of the Worlds',
@@ -68,7 +68,7 @@ const filmsList: Film[] = [
     'id': 3,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'Johnny English',
@@ -91,7 +91,7 @@ const filmsList: Film[] = [
     'id': 4,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'Dardjeeling Limited',
@@ -114,7 +114,7 @@ const filmsList: Film[] = [
     'id': 5,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'What We Do in the Shadows',
@@ -137,7 +137,7 @@ const filmsList: Film[] = [
     'id': 6,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'Moonrise Kingdom',
@@ -160,7 +160,7 @@ const filmsList: Film[] = [
     'id': 7,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   },
   {
     'name': 'Aviator',
@@ -183,7 +183,7 @@ const filmsList: Film[] = [
     'id': 8,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
   }
 ];
 

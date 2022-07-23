@@ -1,6 +1,7 @@
 import { Film } from '../../types';
 import Header from '../../components/header/header';
 import FormSendReview from '../../components/form-send-review/form-send-review';
+import { useParams } from 'react-router-dom';
 
 type AddReviewScreenProps = {
   filmsList: Film[];
@@ -8,7 +9,9 @@ type AddReviewScreenProps = {
 
 function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
   const filmsList = props.filmsList;
-  const film = filmsList[4];
+  const {id} = useParams() as {id: string};
+  const neededId = parseInt(id, 10);
+  const film = filmsList[neededId - 1];
   const {backgroundImage, name, posterImage} = film;
 
   return (
