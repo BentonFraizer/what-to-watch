@@ -8,7 +8,7 @@ type FilmsListProps = {
 
 function FilmsList(props: FilmsListProps): JSX.Element {
   const films: Film[] = props.filmsList;
-  const [, setActiveCardId] = useState<number | null>(null);
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
   const handleMouseEnterCard = (gettedActiveCardId: number) => {
     setActiveCardId(gettedActiveCardId);
@@ -24,6 +24,7 @@ function FilmsList(props: FilmsListProps): JSX.Element {
         films.map((film) =>
           (
             <SmallFilmCard
+              activeCardId={activeCardId}
               filmData={film}
               key={film.id}
               onMouseEnterCard = {handleMouseEnterCard}

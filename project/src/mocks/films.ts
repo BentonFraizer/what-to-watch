@@ -45,7 +45,7 @@ const filmsList: Film[] = [
     'id': 2,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
-    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
+    'previewVideoLink': 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
   },
   {
     'name': 'War of the Worlds',
