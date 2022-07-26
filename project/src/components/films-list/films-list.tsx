@@ -1,6 +1,6 @@
-import React from 'react';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import { Film } from '../../types';
+import { useState } from 'react';
 
 type FilmsListProps = {
   filmsList: Film[];
@@ -8,15 +8,28 @@ type FilmsListProps = {
 
 function FilmsList(props: FilmsListProps): JSX.Element {
   const films: Film[] = props.filmsList;
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const handleMouseEnterCard = (gettedActiveCardId: number) => {
+    setActiveCardId(gettedActiveCardId);
+  };
+
+  const handleMouseLeaveCard = (gettedActiveCardId: null) => {
+    setActiveCardId(gettedActiveCardId);
+  };
 
   return (
     <div className="catalog__films-list">
       {
         films.map((film) =>
           (
-            <React.Fragment key={film.id}>
-              <SmallFilmCard filmData={film}/>
-            </React.Fragment>
+            <SmallFilmCard
+              activeCardId={activeCardId}
+              filmData={film}
+              key={film.id}
+              onMouseEnterCard = {handleMouseEnterCard}
+              onMouseLeaveCard = {handleMouseLeaveCard}
+            />
           )
         )
       }
