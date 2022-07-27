@@ -1,14 +1,16 @@
-import { Film } from '../../types';
 import { useEffect, useRef } from 'react';
 
 type VideoPlayerProps = {
-  film: Film;
-  activeCardId: number | null;
+  width: string;
+  height: string;
+  previewVideoLink: string;
+  previewImage:string;
+  isPlaying: boolean;
 }
 
-function VideoPlayer(props: VideoPlayerProps):JSX.Element {
+function VideoPlayer({width, height, previewVideoLink, previewImage, isPlaying}: VideoPlayerProps):JSX.Element {
   const PLAY_DELAY = 1000;
-  const {film, activeCardId} = props;
+  const START_TIME = 0;
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -16,30 +18,30 @@ function VideoPlayer(props: VideoPlayerProps):JSX.Element {
       return;
     }
 
-    if (activeCardId === film.id) {
+    const timer = setTimeout(() => {
+      if(isPlaying) {
+        videoRef.current?.play();
+      }
+    }, PLAY_DELAY);
 
-      setTimeout(() => {
-        if(videoRef.current !== null) {
-          videoRef.current.play();
-        }
-      }, PLAY_DELAY);
-    }
+    videoRef.current.pause();
+    videoRef.current.currentTime = START_TIME;
+    videoRef.current.load();
+
     return () => {
-
-      clearTimeout();
+      clearTimeout(timer);
     };
-  }, [activeCardId, film.id]);
+  }, [isPlaying]);
 
   return (
     <video
-      key={film.id}
       ref={videoRef}
-      src={film.previewVideoLink}
+      width={width}
+      height={height}
+      poster={previewImage}
       muted
-      poster={film.previewImage}
-      width={260.75}
     >
-
+      <source src={previewVideoLink} />
     </video>
   );
 }

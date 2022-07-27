@@ -9,26 +9,30 @@ type SmallFilmCardProps = {
 }
 
 function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
-  const {name, previewImage, id} = props.filmData;
+  const {name, previewImage, id, previewVideoLink} = props.filmData;
+  const activeCardId = props.activeCardId;
 
   return (
     <article className="small-film-card catalog__films-card"
       onMouseEnter = {() => props.onMouseEnterCard(id)}
       onMouseLeave = {() => props.onMouseLeaveCard()}
     >
-      {props.activeCardId &&
+      {activeCardId === id &&
         <VideoPlayer
-          film={props.filmData}
-          activeCardId={props.activeCardId}
+          width="265"
+          height="170"
+          previewVideoLink={previewVideoLink}
+          previewImage={previewImage}
+          isPlaying={activeCardId === id}
         />}
 
-      {!props.activeCardId &&
+      {activeCardId !== id &&
         <div className="small-film-card__image">
           <img src={previewImage} alt={name} width="280" height="175" />
         </div>}
 
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`/films/:${id}`}>{name}</Link>
       </h3>
     </article>
   );
