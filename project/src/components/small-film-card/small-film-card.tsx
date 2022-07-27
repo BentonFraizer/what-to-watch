@@ -4,7 +4,7 @@ import VideoPlayer from '../video-player/video-player';
 type SmallFilmCardProps = {
   filmData: Film;
   onMouseEnterCard: (id:number) => void;
-  onMouseLeaveCard: (id:null) => void;
+  onMouseLeaveCard: () => void;
   activeCardId: number | null;
 }
 
@@ -14,7 +14,7 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card"
       onMouseEnter = {() => props.onMouseEnterCard(id)}
-      onMouseLeave = {() => props.onMouseLeaveCard(null)}
+      onMouseLeave = {() => props.onMouseLeaveCard()}
     >
       {props.activeCardId &&
         <VideoPlayer

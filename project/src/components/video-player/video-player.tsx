@@ -7,6 +7,7 @@ type VideoPlayerProps = {
 }
 
 function VideoPlayer(props: VideoPlayerProps):JSX.Element {
+  const PLAY_DELAY = 1000;
   const {film, activeCardId} = props;
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -16,13 +17,15 @@ function VideoPlayer(props: VideoPlayerProps):JSX.Element {
     }
 
     if (activeCardId === film.id) {
+
       setTimeout(() => {
         if(videoRef.current !== null) {
           videoRef.current.play();
         }
-      }, 1000);
+      }, PLAY_DELAY);
     }
     return () => {
+
       clearTimeout();
     };
   }, [activeCardId, film.id]);

@@ -14,8 +14,8 @@ function FilmsList(props: FilmsListProps): JSX.Element {
     setActiveCardId(gettedActiveCardId);
   };
 
-  const handleMouseLeaveCard = (gettedActiveCardId: null) => {
-    setActiveCardId(gettedActiveCardId);
+  const handleMouseLeaveCard = () => {
+    setActiveCardId(null);
   };
 
   return (
