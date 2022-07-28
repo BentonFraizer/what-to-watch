@@ -7,20 +7,8 @@ type PlayerScreenProps = {
 
 function PlayerScreen(props: PlayerScreenProps): JSX.Element {
   const filmsList = props.filmsList;
-
-  const {id} = useParams();
-
-  const checkIsTypeOfString = (variableForCheck: string | undefined): number => {
-    if (typeof(variableForCheck) !== 'undefined') {
-      const neededId = parseInt(variableForCheck, 10);
-      return neededId;
-    }
-    return -1;
-  };
-
-  const checkedId = checkIsTypeOfString(id);
-
-  const film = filmsList[checkedId - 1];
+  const {id} = useParams() as {id: string};
+  const film = filmsList[parseInt(id, 10) - 1];
   const {videoLink, posterImage} = film;
 
   return (

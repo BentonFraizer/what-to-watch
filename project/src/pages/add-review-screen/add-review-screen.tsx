@@ -12,10 +12,10 @@ function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
   const {id} = useParams() as {id: string};
   const neededId = parseInt(id, 10);
   const film = filmsList[neededId - 1];
-  const {backgroundImage, name, posterImage} = film;
+  const {backgroundImage, backgroundColor, name, posterImage} = film;
 
   return (
-    <section className="film-card film-card--full" >
+    <section className="film-card film-card--full" style={{backgroundColor: backgroundColor}}>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={backgroundImage} alt={name} />

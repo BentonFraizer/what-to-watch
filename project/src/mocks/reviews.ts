@@ -8,7 +8,7 @@ const reviewsList: Review[] = [
       'name': 'Corey'
     },
     'rating': 9.6,
-    'comment': 'It was well acted, directed, and the music was good. But the story is yawn. Not trying to rip anybody but I checked my watch a dozen times during this movie.',
+    'comment': 'I personally found this movie to be boring. Definitely one of the most boring movies I\'ve ever seen.',
     'date': '2022-06-20T12:25:36.946Z'
   },
   {
