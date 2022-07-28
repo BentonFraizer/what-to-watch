@@ -14,3 +14,11 @@ export enum AuthorizationStatus {
 }
 
 export const RATING_NUMBERS:number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+export enum Rating {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
+}

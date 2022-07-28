@@ -46,7 +46,11 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Film}
-          element={<FilmScreen />}
+          element={
+            <FilmScreen
+              {...props}
+            />
+          }
         />
         <Route
           path={AppRoute.AddReview}

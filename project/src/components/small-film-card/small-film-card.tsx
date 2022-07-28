@@ -32,7 +32,7 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
         </div>}
 
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/:${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );
