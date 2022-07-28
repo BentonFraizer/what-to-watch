@@ -43,7 +43,14 @@ function TabDetails({film, onTabClick}: TabDetailsProps): JSX.Element {
           >
             <a href="!" data-film-tab='Details' className="film-nav__link">Details</a>
           </li>
-          <li className="film-nav__item">
+          <li className="film-nav__item"
+            onClick={
+              (evt) => {
+                evt.preventDefault();
+                onTabClick((evt.target as HTMLUListElement).dataset.filmTab);
+              }
+            }
+          >
             <a href="!" data-film-tab='Reviews' className="film-nav__link">Reviews</a>
           </li>
         </ul>

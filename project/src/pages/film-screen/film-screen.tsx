@@ -4,22 +4,23 @@ import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
-import { Film } from '../../types';
+import TabReviews from '../../components/tab-reviews/tab-reviews';
+import { Film, Review } from '../../types';
 import { useState } from 'react';
 
 type FilmScreenProps = {
   filmsList: Film[];
+  reviewsList: Review[];
 }
 
-function FilmScreen(props: FilmScreenProps): JSX.Element {
+function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
   const [activeTab, setActiveTab] = useState('Overview');
-  const filmsList = props.filmsList;
   const {id} = useParams() as {id: string};
   const film = filmsList[parseInt(id, 10) - 1];
 
   const handleClick = (gettedDatasetValue: string | undefined) => {
     const datasetValue = gettedDatasetValue as string;
-    // console.log(gettedDatasetValue);
+    console.log(gettedDatasetValue);
     setActiveTab(datasetValue);
   };
 
@@ -30,9 +31,9 @@ function FilmScreen(props: FilmScreenProps): JSX.Element {
       case 'Details':
         return <TabDetails film={film} onTabClick={handleClick}/>;
       case 'Reviews':
-        return <TabDetails film={film} onTabClick={handleClick}/>;
+        return <TabReviews reviewsList={reviewsList} onTabClick={handleClick}/>;
       default:
-        return <TabOverview film={film} onTabClick={handleClick}/>;
+        return <span></span>;
     }
   };
 
