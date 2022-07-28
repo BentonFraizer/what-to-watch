@@ -4,11 +4,27 @@ import { useState } from 'react';
 
 type FilmsListProps = {
   filmsList: Film[];
+  inMoreLikeThis?: boolean;
+  genreOfFilm?: string;
 }
 
-function FilmsList(props: FilmsListProps): JSX.Element {
-  const films: Film[] = props.filmsList;
+function FilmsList({filmsList, inMoreLikeThis, genreOfFilm}: FilmsListProps): JSX.Element {
+  const films: Film[] = filmsList;
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const getFilteredFilms = (allFilms: Film[], genre: string, inMoreLikeThisSection: boolean): Film[] => {
+    const neededFilmAmount = 4;
+
+    if (inMoreLikeThisSection) {
+      const filteredFilms = allFilms.filter((film: Film) => film.genre === genre);
+      return filteredFilms.slice(0, neededFilmAmount);
+    } else {
+      return films;
+    }
+  };
+
+  const filteredFilms = getFilteredFilms(films, genreOfFilm as string, inMoreLikeThis as boolean);
+
 
   const handleMouseEnterCard = (gettedActiveCardId: number) => {
     setActiveCardId(gettedActiveCardId);
@@ -21,7 +37,7 @@ function FilmsList(props: FilmsListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
       {
-        films.map((film) =>
+        filteredFilms.map((film) =>
           (
             <SmallFilmCard
               activeCardId={activeCardId}

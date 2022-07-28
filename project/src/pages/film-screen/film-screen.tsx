@@ -7,6 +7,7 @@ import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
 import { Film, Review } from '../../types';
 import { useState } from 'react';
+import FilmsList from '../../components/films-list/films-list';
 
 type FilmScreenProps = {
   filmsList: Film[];
@@ -20,7 +21,6 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
 
   const handleClick = (gettedDatasetValue: string | undefined) => {
     const datasetValue = gettedDatasetValue as string;
-    console.log(gettedDatasetValue);
     setActiveTab(datasetValue);
   };
 
@@ -97,43 +97,12 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/5">Fantastic Beasts: The Crimes of Grindelwald</Link>
-              </h3>
-            </article>
+          <FilmsList
+            filmsList={filmsList}
+            inMoreLikeThis
+            genreOfFilm={film.genre}
+          />
 
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/5">Bohemian Rhapsody</Link>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/5">Macbeth</Link>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/5">Aviator</Link>
-              </h3>
-            </article>
-          </div>
         </section>
 
         <Footer/>
