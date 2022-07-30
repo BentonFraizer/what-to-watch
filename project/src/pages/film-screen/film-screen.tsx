@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import Tabs from '../../components/tabs/tabs';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
@@ -95,9 +94,7 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element | nu
             </div>
 
             <div className="film-card__desc">
-              <Tabs title=''>
-                {renderSwitch(activeTab)}
-              </Tabs>
+              {renderSwitch(activeTab)}
             </div>
 
           </div>
