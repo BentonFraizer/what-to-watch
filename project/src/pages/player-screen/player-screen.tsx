@@ -1,14 +1,25 @@
 import { Film } from '../../types';
 import { useParams } from 'react-router-dom';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type PlayerScreenProps = {
   filmsList: Film[];
 }
 
-function PlayerScreen(props: PlayerScreenProps): JSX.Element {
+function PlayerScreen(props: PlayerScreenProps): JSX.Element | null {
   const filmsList = props.filmsList;
-  const {id} = useParams() as {id: string};
-  const film = filmsList[parseInt(id, 10) - 1];
+  const {id} = useParams();
+
+  if (!id) {
+    return null;
+  }
+
+  const film = filmsList.find((item) => item.id === parseInt(id, 10));
+
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   const {videoLink, posterImage} = film;
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Film } from '../../types';
 import { Link } from 'react-router-dom';
+import { timeConvertation } from '../../utils/utils';
 
 type TabDetailsProps = {
   film: Film;
@@ -8,19 +9,10 @@ type TabDetailsProps = {
 }
 
 function TabDetails({film, onTabClick}: TabDetailsProps): JSX.Element {
-  const timeConvertation = (minutesAmount:number): string => {
-    const hours = (minutesAmount / 60);
-    const roundHours = Math.floor(hours);
-    const minutes = (hours - roundHours) * 60;
-    const roundMinutes = Math.round(minutes);
-    if (roundHours === 0) {
-      return `${roundMinutes}m`;
-    }
-    return `${roundHours}h ${roundMinutes}m`;
-  };
+
 
   return (
-    <React.Fragment>
+    <>
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li className="film-nav__item"
@@ -89,7 +81,7 @@ function TabDetails({film, onTabClick}: TabDetailsProps): JSX.Element {
           </p>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

@@ -22,3 +22,9 @@ export enum Rating {
   VeryGood = 'Very good',
   Awesome = 'Awesome',
 }
+
+export enum TabName {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}

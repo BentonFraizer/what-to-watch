@@ -4,26 +4,26 @@ import { useState } from 'react';
 
 type FilmsListProps = {
   filmsList: Film[];
-  inMoreLikeThis?: boolean;
+  isSimilarFilms?: boolean;
   genreOfFilm?: string;
 }
 
-function FilmsList({filmsList, inMoreLikeThis, genreOfFilm}: FilmsListProps): JSX.Element {
+function FilmsList({filmsList, isSimilarFilms, genreOfFilm}: FilmsListProps): JSX.Element {
   const films: Film[] = filmsList;
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
-  const getFilteredFilms = (allFilms: Film[], genre: string, inMoreLikeThisSection: boolean): Film[] => {
-    const neededFilmAmount = 4;
+  const getFilteredFilms = (allFilms: Film[], genre: string, similarFilms: boolean): Film[] => {
+    const NEEDED_FILM_AMOUNT = 4;
 
-    if (inMoreLikeThisSection) {
+    if (similarFilms) {
       const filteredFilms = allFilms.filter((film: Film) => film.genre === genre);
-      return filteredFilms.slice(0, neededFilmAmount);
+      return filteredFilms.slice(0, NEEDED_FILM_AMOUNT);
     } else {
       return films;
     }
   };
 
-  const filteredFilms = getFilteredFilms(films, genreOfFilm as string, inMoreLikeThis as boolean);
+  const filteredFilms = getFilteredFilms(films, genreOfFilm as string, isSimilarFilms as boolean);
 
 
   const handleMouseEnterCard = (gettedActiveCardId: number) => {
