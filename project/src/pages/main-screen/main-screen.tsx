@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 import GenresList from '../../components/genres-list/genres-list';
+import { getGenres } from '../../utils/utils';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -12,6 +13,8 @@ type MainScreenProps = {
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {name, genre, released} = props.promoFilm;
   const {filmsList, filteredFilmList} = useAppSelector((state) => state);
+  const genres = getGenres(filmsList);
+  const currentGenre = useAppSelector((state) => state.genre);
 
   return (
     <>
@@ -61,7 +64,10 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList filmsList = {filmsList}/>
+          <GenresList
+            genres = {genres}
+            currentGenre = {currentGenre}
+          />
 
           <FilmsList filmsList = {filteredFilmList}/>
 

@@ -1,16 +1,13 @@
-import { Film } from '../../types';
-import { getGenres } from '../../utils/utils';
 import { changeGenre, applyFilter, resetFilter } from '../../store/action';
-import { useAppDispatch, useAppSelector } from '../../hooks/';
+import { useAppDispatch } from '../../hooks/';
 
 type GenresListProps = {
-  filmsList: Film[];
+  genres: string[];
+  currentGenre: string;
 }
 
-function GenresList({filmsList}: GenresListProps): JSX.Element {
-  const genres = getGenres(filmsList);
+function GenresList({genres, currentGenre}: GenresListProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentGenre = useAppSelector((state) => state.genre);
 
   return (
     <ul className="catalog__genres-list">
