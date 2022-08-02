@@ -2,16 +2,26 @@ import { Film } from '../../types';
 import Header from '../../components/header/header';
 import FormSendReview from '../../components/form-send-review/form-send-review';
 import { useParams } from 'react-router-dom';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type AddReviewScreenProps = {
   filmsList: Film[];
 }
 
-function AddReviewScreen(props: AddReviewScreenProps): JSX.Element {
+function AddReviewScreen(props: AddReviewScreenProps): JSX.Element | null {
   const filmsList = props.filmsList;
-  const {id} = useParams() as {id: string};
-  const neededId = parseInt(id, 10);
-  const film = filmsList[neededId - 1];
+  const {id} = useParams();
+
+  if (!id) {
+    return null;
+  }
+
+  const film = filmsList.find((item) => item.id === parseInt(id, 10));
+
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   const {backgroundImage, backgroundColor, name, posterImage} = film;
 
   return (

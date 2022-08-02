@@ -1,23 +1,33 @@
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import Tabs from '../../components/tabs/tabs';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
 import { Film, Review } from '../../types';
 import { useState } from 'react';
 import FilmsList from '../../components/films-list/films-list';
+import { TabName } from '../../consts';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type FilmScreenProps = {
   filmsList: Film[];
   reviewsList: Review[];
 }
 
-function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
+function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
-  const {id} = useParams() as {id: string};
-  const film = filmsList[parseInt(id, 10) - 1];
+  const {id} = useParams();
+
+  if (!id) {
+    return null;
+  }
+
+  const film = filmsList.find((item) => item.id === parseInt(id, 10));
+
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
 
   const handleClick = (gettedDatasetValue: string | undefined) => {
     const datasetValue = gettedDatasetValue as string;
@@ -26,11 +36,11 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
 
   const renderSwitch = (switchParameter: string): JSX.Element => {
     switch(switchParameter) {
-      case 'Overview':
+      case TabName.Overview:
         return <TabOverview film={film} onTabClick={handleClick}/>;
-      case 'Details':
+      case TabName.Details:
         return <TabDetails film={film} onTabClick={handleClick}/>;
-      case 'Reviews':
+      case TabName.Reviews:
         return <TabReviews reviewsList={reviewsList} onTabClick={handleClick}/>;
       default:
         return <span></span>;
@@ -84,9 +94,7 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <Tabs title=''>
-                {renderSwitch(activeTab)}
-              </Tabs>
+              {renderSwitch(activeTab)}
             </div>
 
           </div>
@@ -99,7 +107,7 @@ function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element {
 
           <FilmsList
             filmsList={filmsList}
-            inMoreLikeThis
+            isSimilarFilms
             genreOfFilm={film.genre}
           />
 
