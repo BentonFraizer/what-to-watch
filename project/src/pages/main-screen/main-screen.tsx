@@ -22,10 +22,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const [showMoreButtonVisibility, setShowMoreButtonVisibility] = useState<boolean>(true);
   let renderedFilms = filteredFilmsList.slice(0, Math.min(filmsCount, renderedFilmsCount));
 
+  //Обнуление счетчика отрисованных фильмов при смене жанра
   const handleChangeGenreClick = () => {
     setRenderedFilmsCount(FILMS_COUNT_PER_STEP);
   };
 
+  //Код для показа/скрывания кнопки Show more
   useEffect(() => {
     if (renderedFilms.length >= FILMS_COUNT_PER_STEP && renderedFilms.length < filmsCount) {
       setShowMoreButtonVisibility(true);
@@ -34,6 +36,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
     }
   }, [renderedFilms, filmsCount, showMoreButtonVisibility]);
 
+  //Обработчик нажатия на кнопку Show more. Отрисовывает ещё 8 фильмов или все оставшиеся, если их меньше 8 и скрывает кнопку
   const handleLoadMoreButtonClick = () => {
     const newRenderedFilmsCount = Math.min(filmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP);
     renderedFilms = filteredFilmsList.slice(renderedFilmsCount, newRenderedFilmsCount);
