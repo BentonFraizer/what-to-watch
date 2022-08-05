@@ -7,7 +7,7 @@ const initialFilmsList = filmsList;
 const initialState = {
   genre: 'All genres',
   filmsList: initialFilmsList,
-  filteredFilmList: initialFilmsList,
+  filteredFilmsList: initialFilmsList,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -17,12 +17,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(applyFilter, (state, action) => {
       if (action.payload === 'All genres') {
-        return {...state, filteredFilmList: initialFilmsList};
+        return {...state, filteredFilmsList: initialFilmsList};
       }
-      state.filteredFilmList = state.filteredFilmList.filter((film) => film.genre === action.payload);
+      state.filteredFilmsList = state.filteredFilmsList.filter((film) => film.genre === action.payload);
     })
     .addCase(resetFilter, (state) => {
-      state.filteredFilmList = initialState.filmsList;
+      state.filteredFilmsList = initialState.filmsList;
     });
 });
 

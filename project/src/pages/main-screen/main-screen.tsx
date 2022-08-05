@@ -5,6 +5,8 @@ import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 import GenresList from '../../components/genres-list/genres-list';
 import { getGenres } from '../../utils/utils';
+import { useState, useEffect } from 'react';
+import ShowMore from '../../components/show-more/show-more';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -12,7 +14,41 @@ type MainScreenProps = {
 
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {name, genre, released} = props.promoFilm;
-  const {filmsList, filteredFilmList} = useAppSelector((state) => state);
+  const {filmsList, filteredFilmsList} = useAppSelector((state) => state);
+
+  const FILMS_COUNT_PER_STEP = 8;
+  const filmsCount = filteredFilmsList.length;
+  const [renderedFilmsCount, setRenderedFilmsCount] = useState<number>(FILMS_COUNT_PER_STEP);
+  const [showMoreButtonVisibility, setShowMoreButtonVisibility] = useState<boolean>(true);
+  let renderedFilms = filteredFilmsList.slice(0, Math.min(filmsCount, renderedFilmsCount));
+
+  //Обнуление счетчика отрисованных фильмов при смене жанра
+  const handleChangeGenreClick = () => {
+    setRenderedFilmsCount(FILMS_COUNT_PER_STEP);
+  };
+
+  //Код для показа/скрывания кнопки Show more
+  useEffect(() => {
+    if (renderedFilms.length >= FILMS_COUNT_PER_STEP && renderedFilms.length < filmsCount) {
+      setShowMoreButtonVisibility(true);
+    } else {
+      setShowMoreButtonVisibility(false);
+    }
+  }, [renderedFilms, filmsCount, showMoreButtonVisibility]);
+
+  //Обработчик нажатия на кнопку Show more. Отрисовывает ещё 8 фильмов или все оставшиеся, если их меньше 8 и скрывает кнопку
+  const handleLoadMoreButtonClick = () => {
+    const newRenderedFilmsCount = Math.min(filmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP);
+    renderedFilms = filteredFilmsList.slice(renderedFilmsCount, newRenderedFilmsCount);
+    setRenderedFilmsCount(newRenderedFilmsCount);
+
+    if (newRenderedFilmsCount >= filmsCount) {
+      setShowMoreButtonVisibility(false);
+    }
+
+    return renderedFilms;
+  };
+
   const genres = getGenres(filmsList);
   const currentGenre = useAppSelector((state) => state.genre);
 
@@ -67,13 +103,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
           <GenresList
             genres = {genres}
             currentGenre = {currentGenre}
+            onChangeClick = {handleChangeGenreClick}
           />
 
-          <FilmsList filmsList = {filteredFilmList}/>
+          <FilmsList filmsList = {renderedFilms}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {showMoreButtonVisibility && <ShowMore onButtonClick = {handleLoadMoreButtonClick}/>}
         </section>
         <Footer/>
       </div>

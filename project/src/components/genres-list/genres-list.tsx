@@ -4,9 +4,10 @@ import { useAppDispatch } from '../../hooks/';
 type GenresListProps = {
   genres: string[];
   currentGenre: string;
+  onChangeClick: () => void;
 }
 
-function GenresList({genres, currentGenre}: GenresListProps): JSX.Element {
+function GenresList({genres, currentGenre, onChangeClick}: GenresListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -20,6 +21,7 @@ function GenresList({genres, currentGenre}: GenresListProps): JSX.Element {
                 dispatch(resetFilter());
                 dispatch(changeGenre((evt.target as HTMLInputElement).innerHTML));
                 dispatch(applyFilter((evt.target as HTMLInputElement).innerHTML));
+                onChangeClick();
               }}
               key={genre}
               className={currentGenre === genre ? 'catalog__genres-item catalog__genres-item--active' : 'catalog__genres-item'}
