@@ -17,20 +17,21 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
       onMouseEnter = {() => props.onMouseEnterCard(id)}
       onMouseLeave = {() => props.onMouseLeaveCard()}
     >
-      {activeCardId === id &&
-        <VideoPlayer
-          width="265"
-          height="170"
-          previewVideoLink={previewVideoLink}
-          previewImage={previewImage}
-          isPlaying={activeCardId === id}
-        />}
+      <Link className="small-film-card__link" to={`/films/${id}`}>
+        {activeCardId === id &&
+          <VideoPlayer
+            width="265"
+            height="170"
+            previewVideoLink={previewVideoLink}
+            previewImage={previewImage}
+            isPlaying={activeCardId === id}
+          />}
 
-      {activeCardId !== id &&
-        <div className="small-film-card__image">
-          <img src={previewImage} alt={name} width="280" height="175" />
-        </div>}
-
+        {activeCardId !== id &&
+          <div className="small-film-card__image">
+            <img src={previewImage} alt={name} width="280" height="175" />
+          </div>}
+      </Link>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
