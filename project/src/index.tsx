@@ -5,6 +5,9 @@ import App from './components/app/app';
 import promoFilm from './mocks/promo-film';
 import reviewsList from './mocks/reviews';
 import { store } from './store';
+import { fetchFilmsAction } from './store/api-actions';
+
+store.dispatch(fetchFilmsAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,7 +18,6 @@ root.render(
     <Provider store={store}>
       <App
         {...{
-          filmsList,
           promoFilm,
           reviewsList
         }}

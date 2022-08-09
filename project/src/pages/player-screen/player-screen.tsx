@@ -1,13 +1,9 @@
-import { Film } from '../../types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useAppSelector } from '../../hooks/';
 
-type PlayerScreenProps = {
-  filmsList: Film[];
-}
-
-function PlayerScreen(props: PlayerScreenProps): JSX.Element | null {
-  const filmsList = props.filmsList;
+function PlayerScreen(): JSX.Element | null {
+  const {filmsList} = useAppSelector((state) => state);
   const {id} = useParams();
 
   if (!id) {

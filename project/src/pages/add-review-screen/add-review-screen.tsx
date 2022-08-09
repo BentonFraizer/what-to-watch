@@ -1,15 +1,11 @@
-import { Film } from '../../types';
 import Header from '../../components/header/header';
 import FormSendReview from '../../components/form-send-review/form-send-review';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useAppSelector } from '../../hooks/index';
 
-type AddReviewScreenProps = {
-  filmsList: Film[];
-}
-
-function AddReviewScreen(props: AddReviewScreenProps): JSX.Element | null {
-  const filmsList = props.filmsList;
+function AddReviewScreen(): JSX.Element | null {
+  const {filmsList} = useAppSelector((state) => state);
   const {id} = useParams();
 
   if (!id) {

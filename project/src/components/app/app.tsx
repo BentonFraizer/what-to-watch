@@ -11,7 +11,6 @@ import { Film, Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
-  filmsList: Film[];
   promoFilm: Film;
   reviewsList: Review[];
 }
@@ -38,9 +37,7 @@ function App(props: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyListScreen
-                {...props}
-              />
+              <MyListScreen/>
             </PrivateRoute>
           }
         />
@@ -55,17 +52,13 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.AddReview}
           element={
-            <AddReviewScreen
-              {...props}
-            />
+            <AddReviewScreen />
           }
         />
         <Route
           path={AppRoute.Player}
           element={
-            <PlayerScreen
-              {...props}
-            />
+            <PlayerScreen />
           }
         />
         <Route
