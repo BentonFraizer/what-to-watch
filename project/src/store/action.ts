@@ -5,4 +5,5 @@ export const changeGenre = createAction('filter/changeGenre', (value) => ({paylo
 export const applyFilter = createAction('filter/applyFilter', (value) => ({payload: value}));
 export const resetFilter = createAction('filter/resetFilter');
 export const loadFilms = createAction('data/loadFilms', (value) => ({payload: value}));
+export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

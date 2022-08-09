@@ -5,9 +5,10 @@ import App from './components/app/app';
 import promoFilm from './mocks/promo-film';
 import reviewsList from './mocks/reviews';
 import { store } from './store';
-import { fetchFilmsAction } from './store/api-actions';
+import { fetchFilmsAction, checkAuthAction } from './store/api-actions';
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
