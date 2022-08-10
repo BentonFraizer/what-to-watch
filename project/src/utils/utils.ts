@@ -1,4 +1,5 @@
 import { Film } from '../types';
+import { AuthorizationStatus } from '../consts';
 
 export const timeConvertation = (minutesAmount:number): string => {
   const hours = (minutesAmount / 60);
@@ -16,3 +17,7 @@ export const getGenres = (films: Film[]) => {
   const genres = new Set(films.map((film) => film.genre));
   return Array.from(['All genres', ...genres]);
 };
+
+//функция для проверки авторизации пользователя
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;

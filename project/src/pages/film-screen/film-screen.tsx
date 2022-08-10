@@ -4,18 +4,19 @@ import Header from '../../components/header/header';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
-import { Film, Review } from '../../types';
+import { Review } from '../../types';
 import { useState } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useAppSelector } from '../../hooks/';
 
 type FilmScreenProps = {
-  filmsList: Film[];
   reviewsList: Review[];
 }
 
-function FilmScreen({filmsList, reviewsList}: FilmScreenProps): JSX.Element | null {
+function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
+  const {filmsList} = useAppSelector((state) => state);
   const [activeTab, setActiveTab] = useState('Overview');
   const {id} = useParams();
 

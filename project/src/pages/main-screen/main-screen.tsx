@@ -2,11 +2,12 @@ import FilmsList from '../../components/films-list/films-list';
 import { Film } from '../../types';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import GenresList from '../../components/genres-list/genres-list';
 import { getGenres } from '../../utils/utils';
 import { useState, useEffect } from 'react';
 import ShowMore from '../../components/show-more/show-more';
+import { applyFilter } from '../../store/action';
 
 type MainScreenProps = {
   promoFilm: Film;
@@ -15,6 +16,11 @@ type MainScreenProps = {
 function MainScreen(props: MainScreenProps): JSX.Element {
   const {name, genre, released} = props.promoFilm;
   const {filmsList, filteredFilmsList} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(applyFilter('All genres'));
+  }, []);
 
   const FILMS_COUNT_PER_STEP = 8;
   const filmsCount = filteredFilmsList.length;
