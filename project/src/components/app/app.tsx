@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../consts';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
@@ -11,7 +11,9 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Film, Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route';
 import { isCheckedAuth } from '../../utils/utils';
+import browserHistory from '../../browser-history';
 
 type AppProps = {
   promoFilm: Film;
@@ -28,7 +30,7 @@ function App(props: AppProps): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -81,7 +83,7 @@ function App(props: AppProps): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
