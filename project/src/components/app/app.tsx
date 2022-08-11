@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/index';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../consts';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
