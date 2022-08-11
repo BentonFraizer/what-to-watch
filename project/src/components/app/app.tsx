@@ -10,7 +10,7 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Film, Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
-import Spinner from '../spinner/spinner';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { isCheckedAuth } from '../../utils/utils';
 
 type AppProps = {
@@ -23,7 +23,7 @@ function App(props: AppProps): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
-      <Spinner/>
+      <LoadingScreen/>
     );
   }
 

@@ -1,5 +1,5 @@
 type AuthData = {
-  login: string;
+  eMail: string;
   password: string;
 };
 
