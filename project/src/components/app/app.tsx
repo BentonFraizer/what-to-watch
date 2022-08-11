@@ -63,7 +63,11 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.AddReview}
           element={
-            <AddReviewScreen />
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <AddReviewScreen />
+            </PrivateRoute>
           }
         />
         <Route
