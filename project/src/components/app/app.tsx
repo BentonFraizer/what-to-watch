@@ -8,7 +8,7 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Film, Review } from '../../types';
+import { Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
@@ -16,7 +16,6 @@ import { isCheckedAuth } from '../../utils/utils';
 import browserHistory from '../../browser-history';
 
 type AppProps = {
-  promoFilm: Film;
   reviewsList: Review[];
 }
 
@@ -35,9 +34,7 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.Main}
           element={
-            <MainScreen
-              {...props}
-            />
+            <MainScreen />
           }
         />
         <Route

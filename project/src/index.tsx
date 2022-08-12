@@ -6,10 +6,11 @@ import { ToastContainer } from 'react-toastify';
 import promoFilm from './mocks/promo-film';
 import reviewsList from './mocks/reviews';
 import { store } from './store';
-import { fetchFilmsAction, checkAuthAction } from './store/api-actions';
+import { fetchFilmsAction, fetchPromoFilmAction, checkAuthAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(fetchPromoFilmAction());
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
