@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, applyFilter, resetFilter, loadFilms, setDataLoadedStatus, requireAuthorization, setError, setAvatarUrl } from './action';
+import { changeGenre, applyFilter, resetFilter, loadFilms, setDataLoadedStatus, requireAuthorization, setAvatarUrl } from './action';
 import { AuthorizationStatus } from '../consts';
 import { Film } from '../types';
 
@@ -8,7 +8,6 @@ type InitialState = {
   filmsList: Film[],
   filteredFilmsList: Film[],
   authorizationStatus: AuthorizationStatus,
-  error: string | null,
   isDataLoaded: boolean,
   avatarUrl: string | null,
 }
@@ -18,7 +17,6 @@ const initialState: InitialState = {
   filmsList: [],
   filteredFilmsList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  error: null,
   isDataLoaded: false,
   avatarUrl: null,
 };
@@ -45,9 +43,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(setAvatarUrl, (state, action) => {
       state.avatarUrl = action.payload;
