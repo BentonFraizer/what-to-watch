@@ -2,6 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
 import { processErrorHandle } from './process-error-handle';
+import { store } from '../store';
+import { setAvatarUrl } from '../store/action';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -20,6 +22,7 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
+  //"перехватчик" для отправки заголовка с токеном
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const token = getToken();
@@ -32,6 +35,7 @@ export const createAPI = (): AxiosInstance => {
     },
   );
 
+  //"перехватчик" ошибки
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
@@ -41,6 +45,18 @@ export const createAPI = (): AxiosInstance => {
 
       throw error;
     }
+  );
+
+  //"перехватчик" получения URL к аватару пользователя
+  api.interceptors.response.use(
+    (response: AxiosResponse) => {
+      const avatarUrl = response.data.avatarUrl;
+      if (avatarUrl) {
+        store.dispatch(setAvatarUrl(avatarUrl));
+      }
+
+      return response;
+    },
   );
 
   return api;

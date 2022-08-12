@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '../logo/logo';
 import Film from '../../types/film';
+import UserBlock from '../user-block/user-block';
 
 type HeaderProps = {
   isInMyList?: boolean;
@@ -28,17 +29,8 @@ function Header(props: HeaderProps): JSX.Element {
       {props.isInMyList && <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>}
 
       {props.isInSignIn && <h1 className="page-title user-page__title">Sign in</h1>}
-      {!props.isInSignIn &&
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <Link to="/mylist" className="user-block__link">Sign out</Link>
-          </li>
-        </ul>}
+      {!props.isInSignIn && <UserBlock/>}
+
     </header>
   );
 }

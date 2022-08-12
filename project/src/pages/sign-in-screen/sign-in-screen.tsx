@@ -2,15 +2,21 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
 import { useRef, FormEvent } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../consts';
+
 
 function SignInScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const {authorizationStatus} = useAppSelector((state) => state);
+
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -61,7 +67,18 @@ function SignInScreen(): JSX.Element {
             </div>
           </div>
           <div className='sign-in__submit'>
-            <button className='sign-in__btn' type='submit'>Sign in</button>
+            <button
+              onClick={() =>
+              {
+                if (authorizationStatus === AuthorizationStatus.Auth) {
+                  navigate(AppRoute.Main);
+                }
+              }}
+              className='sign-in__btn'
+              type='submit'
+            >
+              Sign in
+            </button>
           </div>
         </form>
       </div>
