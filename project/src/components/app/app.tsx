@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/index';
+import { Routes, Route } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../consts';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -8,13 +8,14 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Film, Review } from '../../types';
+import { Review } from '../../types';
 import PrivateRoute from '../private-route/private-route';
-import Spinner from '../spinner/spinner';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route';
 import { isCheckedAuth } from '../../utils/utils';
+import browserHistory from '../../browser-history';
 
 type AppProps = {
-  promoFilm: Film;
   reviewsList: Review[];
 }
 
@@ -23,19 +24,17 @@ function App(props: AppProps): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
-      <Spinner/>
+      <LoadingScreen/>
     );
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
           element={
-            <MainScreen
-              {...props}
-            />
+            <MainScreen />
           }
         />
         <Route
@@ -63,7 +62,11 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.AddReview}
           element={
-            <AddReviewScreen />
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <AddReviewScreen />
+            </PrivateRoute>
           }
         />
         <Route
@@ -77,7 +80,7 @@ function App(props: AppProps): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
