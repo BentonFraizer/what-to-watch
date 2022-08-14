@@ -5,26 +5,32 @@ import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
 import { Review } from '../../types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks/';
+import { useAppSelector, useAppDispatch } from '../../hooks/';
+import { fetchFilmAction } from '../../store/api-actions';
 
 type FilmScreenProps = {
   reviewsList: Review[];
 }
 
 function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
-  const {filmsList} = useAppSelector((state) => state);
   const [activeTab, setActiveTab] = useState('Overview');
   const {id} = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(Number(id)));
+  }, []);
+
+  const {filmsList, film} = useAppSelector((state) => state);
+
 
   if (!id) {
     return null;
   }
-
-  const film = filmsList.find((item) => item.id === parseInt(id, 10));
 
   if (!film) {
     return <NotFoundScreen/>;

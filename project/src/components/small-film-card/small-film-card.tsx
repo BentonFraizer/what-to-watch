@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Film } from '../../types';
 import VideoPlayer from '../video-player/video-player';
+
 type SmallFilmCardProps = {
   filmData: Film;
   onMouseEnterCard: (id:number) => void;
