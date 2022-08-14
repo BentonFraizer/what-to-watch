@@ -1,6 +1,6 @@
-import { Review } from '../types';
+import { Comment } from '../types';
 
-const reviewsList: Review[] = [
+const reviewsList: Comment[] = [
   {
     'id': 1,
     'user': {

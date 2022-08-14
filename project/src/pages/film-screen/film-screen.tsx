@@ -4,19 +4,14 @@ import Header from '../../components/header/header';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
-import { Review } from '../../types';
 import { useState, useEffect } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
-import { fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 
-type FilmScreenProps = {
-  reviewsList: Review[];
-}
-
-function FilmScreen({ reviewsList }: FilmScreenProps): JSX.Element | null {
+function FilmScreen(): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
   const {id} = useParams();
   const dispatch = useAppDispatch();
@@ -24,9 +19,10 @@ function FilmScreen({ reviewsList }: FilmScreenProps): JSX.Element | null {
   useEffect(() => {
     dispatch(fetchFilmAction(Number(id)));
     dispatch(fetchSimilarFilmsAction(Number(id)));
+    dispatch(fetchCommentsAction(Number(id)));
   }, []);
 
-  const {similarFilmsList, film} = useAppSelector((state) => state);
+  const {similarFilmsList, film, comments} = useAppSelector((state) => state);
 
   if (!film) {
     return <NotFoundScreen/>;
@@ -44,7 +40,7 @@ function FilmScreen({ reviewsList }: FilmScreenProps): JSX.Element | null {
       case TabName.Details:
         return <TabDetails film={film} onTabClick={handleClick}/>;
       case TabName.Reviews:
-        return <TabReviews reviewsList={reviewsList} onTabClick={handleClick}/>;
+        return <TabReviews reviewsList={comments} onTabClick={handleClick}/>;
       default:
         return <span></span>;
     }

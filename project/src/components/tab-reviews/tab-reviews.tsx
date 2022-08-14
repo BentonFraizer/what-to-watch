@@ -1,14 +1,15 @@
 import React from 'react';
-import { Review } from '../../types';
+import { Comment } from '../../types';
 import { default as dayjs } from 'dayjs';
 
 type TabReviewsProps = {
-  reviewsList: Review[];
+  reviewsList: Comment[];
   onTabClick: (datasetValue: string | undefined) => void;
 }
 
 function TabReviews(props: TabReviewsProps): JSX.Element {
-  const reviewsList = props.reviewsList;
+  const {reviewsList} = props;
+
 
   return (
     <React.Fragment>

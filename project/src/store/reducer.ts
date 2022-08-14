@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, applyFilter, resetFilter, loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, setDataLoadedStatus, requireAuthorization, setAvatarUrl } from './action';
+import { changeGenre, applyFilter, resetFilter, loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, setDataLoadedStatus, requireAuthorization, setAvatarUrl } from './action';
 import { AuthorizationStatus } from '../consts';
-import { Film } from '../types';
+import { Film, Comment } from '../types';
 
 type InitialState = {
   genre: string,
@@ -9,6 +9,7 @@ type InitialState = {
   film: Film | null,
   similarFilmsList: Film[],
   promoFilm: Film | null,
+  comments: Comment[];
   filteredFilmsList: Film[],
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
@@ -21,6 +22,7 @@ const initialState: InitialState = {
   film: null,
   similarFilmsList: [],
   promoFilm: null,
+  comments: [],
   filteredFilmsList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
@@ -52,6 +54,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

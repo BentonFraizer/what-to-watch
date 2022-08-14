@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { Film } from '../types';
-import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, requireAuthorization, setDataLoadedStatus } from './action';
+import { Film, Comment } from '../types';
+import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, requireAuthorization, setDataLoadedStatus } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../consts';
 import { AuthData } from '../types';
@@ -36,8 +36,6 @@ export const fetchFilmAction = createAsyncThunk<void, number, {
   },
 );
 
-//==============================
-
 //Запрос похожих фильмов
 export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
@@ -51,8 +49,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
   },
 );
 
-//==============================
-
+//Запрос промофильма
 export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -62,6 +59,19 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
     dispatch(loadPromoFilm(data));
+  },
+);
+
+//Запрос комментариев
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchComments',
+  async (id: number, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Comments}${id}`);
+    dispatch(loadComments(data));
   },
 );
 
