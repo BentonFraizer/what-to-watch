@@ -6,6 +6,7 @@ export const applyFilter = createAction('filter/applyFilter', (value) => ({paylo
 export const resetFilter = createAction('filter/resetFilter');
 export const loadFilms = createAction('data/loadFilms', (value) => ({payload: value}));
 export const loadFilm = createAction('data/loadFilm', (value) => ({payload: value}));
+export const loadSimilarFilms = createAction('data/loadSimilarFilms', (value) => ({payload: value}));
 export const loadPromoFilm = createAction('data/loadPromoFilm', (value) => ({payload: value}));
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

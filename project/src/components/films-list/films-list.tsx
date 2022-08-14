@@ -6,24 +6,25 @@ type FilmsListProps = {
   filmsList: Film[];
   isSimilarFilms?: boolean;
   genreOfFilm?: string;
+  idOfFilm?: number;
 }
 
-function FilmsList({filmsList, isSimilarFilms, genreOfFilm}: FilmsListProps): JSX.Element {
+function FilmsList({filmsList, isSimilarFilms, genreOfFilm, idOfFilm}: FilmsListProps): JSX.Element {
   const films: Film[] = filmsList;
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
-  const getFilteredFilms = (allFilms: Film[], genre: string, similarFilms: boolean): Film[] => {
+  const getFilteredFilms = (allFilms: Film[], genre: string, similarFilms: boolean, currentFilmId: number): Film[] => {
     const NEEDED_FILM_AMOUNT = 4;
 
     if (similarFilms) {
-      const filteredFilms = allFilms.filter((film: Film) => film.genre === genre);
+      const filteredFilms = allFilms.filter((film: Film) => film.genre === genre && film.id !== currentFilmId);
       return filteredFilms.slice(0, NEEDED_FILM_AMOUNT);
     } else {
       return films;
     }
   };
 
-  const filteredFilms = getFilteredFilms(films, genreOfFilm as string, isSimilarFilms as boolean);
+  const filteredFilms: Film[] = getFilteredFilms(films, genreOfFilm as string, isSimilarFilms as boolean, idOfFilm as number);
 
 
   const handleMouseEnterCard = (gettedActiveCardId: number) => {

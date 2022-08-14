@@ -10,27 +10,23 @@ import FilmsList from '../../components/films-list/films-list';
 import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
-import { fetchFilmAction } from '../../store/api-actions';
+import { fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 
 type FilmScreenProps = {
   reviewsList: Review[];
 }
 
-function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
+function FilmScreen({ reviewsList }: FilmScreenProps): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchFilmAction(Number(id)));
+    dispatch(fetchSimilarFilmsAction(Number(id)));
   }, []);
 
-  const {filmsList, film} = useAppSelector((state) => state);
-
-
-  if (!id) {
-    return null;
-  }
+  const {similarFilmsList, film} = useAppSelector((state) => state);
 
   if (!film) {
     return <NotFoundScreen/>;
@@ -109,16 +105,21 @@ function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+        {
+          similarFilmsList.length > 1 &&
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList
-            filmsList={filmsList}
-            isSimilarFilms
-            genreOfFilm={film.genre}
-          />
+              <FilmsList
+                filmsList={similarFilmsList}
+                isSimilarFilms
+                genreOfFilm={film.genre}
+                idOfFilm={film.id}
+              />
 
-        </section>
+            </section>
+        }
+
 
         <Footer/>
       </div>
