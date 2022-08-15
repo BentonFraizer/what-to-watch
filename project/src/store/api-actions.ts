@@ -2,11 +2,10 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { Film, Comment } from '../types';
-import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, requireAuthorization, setDataLoadedStatus } from './action';
+import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, postComment, requireAuthorization, setDataLoadedStatus } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../consts';
-import { AuthData } from '../types';
-import { UserData } from '../types';
+import { AuthData, UserData, PostCommentData } from '../types';
 
 // Запрос всех фильмов
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -72,6 +71,19 @@ export const fetchCommentsAction = createAsyncThunk<void, number, {
   async (id: number, {dispatch, extra: api}) => {
     const {data} = await api.get<Comment[]>(`${APIRoute.Comments}${id}`);
     dispatch(loadComments(data));
+  },
+);
+
+//Отправка комментария на сервер
+export const postCommentAction = createAsyncThunk<void, PostCommentData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/postComment',
+  async ({comment, rating, filmId}, {dispatch, extra: api}) => {
+    const {data} = await api.post<PostCommentData>(`${APIRoute.Comments}${filmId}`, {comment, rating});
+    dispatch(postComment(data));
   },
 );
 
