@@ -10,6 +10,7 @@ import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { AuthorizationStatus } from '../../consts';
 
 function FilmScreen(): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -22,7 +23,7 @@ function FilmScreen(): JSX.Element | null {
     dispatch(fetchCommentsAction(Number(id)));
   }, []);
 
-  const {similarFilmsList, film, comments} = useAppSelector((state) => state);
+  const {similarFilmsList, film, comments, authorizationStatus } = useAppSelector((state) => state);
 
   if (!film) {
     return <NotFoundScreen/>;
@@ -80,7 +81,8 @@ function FilmScreen(): JSX.Element | null {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth &&
+                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
