@@ -66,16 +66,7 @@ function SignInScreen(): JSX.Element {
             </div>
           </div>
           <div className='sign-in__submit'>
-            <button
-              onClick={() =>
-              {
-                if (authorizationStatus === AuthorizationStatus.Auth) {
-                  navigate(AppRoute.Main);
-                }
-              }}
-              className='sign-in__btn'
-              type='submit'
-            >
+            <button className='sign-in__btn' type='submit'>
               Sign in
             </button>
           </div>

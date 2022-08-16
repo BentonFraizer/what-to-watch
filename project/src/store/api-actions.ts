@@ -2,9 +2,9 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { Film, Comment } from '../types';
-import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, postComment, requireAuthorization, setDataLoadedStatus } from './action';
+import { loadFilms, loadFilm, loadSimilarFilms, loadPromoFilm, loadComments, postComment, requireAuthorization, setDataLoadedStatus, redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
-import { APIRoute, AuthorizationStatus } from '../consts';
+import { APIRoute, AuthorizationStatus, AppRoute } from '../consts';
 import { AuthData, UserData, PostCommentData } from '../types';
 
 // Запрос всех фильмов
@@ -115,6 +115,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 
