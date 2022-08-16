@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute } from '../../consts';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -13,14 +13,30 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import { isCheckedAuth } from '../../utils/utils';
 import browserHistory from '../../browser-history';
+import { checkAuthAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuthAction());
+  }, []);
+
   const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
 
-  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
-    return (
-      <LoadingScreen/>
-    );
+  if (isDataLoaded === true) {
+    if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+      return (
+        <LoadingScreen/>
+      );
+    }
+  } else {
+    if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
+      return (
+        <LoadingScreen/>
+      );
+    }
   }
 
   return (

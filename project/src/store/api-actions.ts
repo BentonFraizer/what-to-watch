@@ -31,7 +31,9 @@ export const fetchFilmAction = createAsyncThunk<void, number, {
   'data/fetchFilm',
   async (id: number, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(`${APIRoute.Film}${id}`);
+    dispatch(setDataLoadedStatus(true));
     dispatch(loadFilm(data));
+    dispatch(setDataLoadedStatus(false));
   },
 );
 
