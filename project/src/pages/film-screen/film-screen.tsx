@@ -4,27 +4,26 @@ import Header from '../../components/header/header';
 import TabOverview from '../../components/tab-overview/tab-overview';
 import TabDetails from '../../components/tab-details/tab-details';
 import TabReviews from '../../components/tab-reviews/tab-reviews';
-import { Review } from '../../types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import { TabName } from '../../consts';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks/';
+import { useAppSelector, useAppDispatch } from '../../hooks/';
+import { fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { AuthorizationStatus } from '../../consts';
 
-type FilmScreenProps = {
-  reviewsList: Review[];
-}
-
-function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
-  const {filmsList} = useAppSelector((state) => state);
+function FilmScreen(): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
   const {id} = useParams();
+  const dispatch = useAppDispatch();
 
-  if (!id) {
-    return null;
-  }
+  useEffect(() => {
+    dispatch(fetchFilmAction(Number(id)));
+    dispatch(fetchSimilarFilmsAction(Number(id)));
+    dispatch(fetchCommentsAction(Number(id)));
+  }, []);
 
-  const film = filmsList.find((item) => item.id === parseInt(id, 10));
+  const {similarFilmsList, film, comments, authorizationStatus } = useAppSelector((state) => state);
 
   if (!film) {
     return <NotFoundScreen/>;
@@ -42,7 +41,7 @@ function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
       case TabName.Details:
         return <TabDetails film={film} onTabClick={handleClick}/>;
       case TabName.Reviews:
-        return <TabReviews reviewsList={reviewsList} onTabClick={handleClick}/>;
+        return <TabReviews reviewsList={comments} onTabClick={handleClick}/>;
       default:
         return <span></span>;
     }
@@ -82,7 +81,8 @@ function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth &&
+                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
@@ -103,16 +103,21 @@ function FilmScreen({ reviewsList}: FilmScreenProps): JSX.Element | null {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+        {
+          similarFilmsList.length > 1 &&
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList
-            filmsList={filmsList}
-            isSimilarFilms
-            genreOfFilm={film.genre}
-          />
+              <FilmsList
+                filmsList={similarFilmsList}
+                isSimilarFilms
+                genreOfFilm={film.genre}
+                idOfFilm={film.id}
+              />
 
-        </section>
+            </section>
+        }
+
 
         <Footer/>
       </div>

@@ -36,7 +36,7 @@ function AddReviewScreen(): JSX.Element | null {
         </div>
       </div>
 
-      <FormSendReview/>
+      <FormSendReview currentFilmId={id} />
 
     </section>
   );
