@@ -6,13 +6,22 @@ import GenresList from '../../components/genres-list/genres-list';
 import { getGenres } from '../../utils/utils';
 import { useState, useEffect } from 'react';
 import ShowMore from '../../components/show-more/show-more';
-import { applyFilter, resetFilter, changeGenre } from '../../store/action';
+import { changeGenre } from '../../store/action';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
 
 function MainScreen(): JSX.Element {
-  const {filmsList, filteredFilmsList, promoFilm} = useAppSelector((state) => state);
+  const {filmsList, promoFilm} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
+  const currentGenre = useAppSelector((state) => state.genre);
+
+  const filteredFilmsList = filmsList.filter((film) => {
+    if (currentGenre === 'All genres') {
+      return filmsList;
+    }
+    return film.genre === currentGenre;
+  }
+  );
 
   useEffect(() => {
     if (filmsList.length === 0) {
@@ -23,9 +32,7 @@ function MainScreen(): JSX.Element {
       dispatch(fetchPromoFilmAction());
     }
 
-    dispatch(resetFilter());
     dispatch(changeGenre('All genres'));
-    dispatch(applyFilter('All genres'));
   }, [filmsList, dispatch, promoFilm]);
 
   const FILMS_COUNT_PER_STEP = 8;
@@ -62,7 +69,6 @@ function MainScreen(): JSX.Element {
   };
 
   const genres = getGenres(filmsList);
-  const currentGenre = useAppSelector((state) => state.genre);
 
   return (
     <>

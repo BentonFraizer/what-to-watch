@@ -1,4 +1,4 @@
-import { changeGenre, applyFilter, resetFilter } from '../../store/action';
+import { changeGenre } from '../../store/action';
 import { useAppDispatch } from '../../hooks/';
 
 type GenresListProps = {
@@ -18,9 +18,7 @@ function GenresList({genres, currentGenre, onChangeClick}: GenresListProps): JSX
             <li
               onClick={(evt) => {
                 evt.preventDefault();
-                dispatch(resetFilter());
-                dispatch(changeGenre((evt.target as HTMLInputElement).innerHTML));
-                dispatch(applyFilter((evt.target as HTMLInputElement).innerHTML));
+                dispatch(changeGenre(genre));
                 onChangeClick();
               }}
               key={genre}
