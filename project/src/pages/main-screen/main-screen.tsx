@@ -26,7 +26,7 @@ function MainScreen(): JSX.Element {
     dispatch(resetFilter());
     dispatch(changeGenre('All genres'));
     dispatch(applyFilter('All genres'));
-  }, [filmsList]);
+  }, [filmsList, dispatch, promoFilm]);
 
   const FILMS_COUNT_PER_STEP = 8;
   const filmsCount = filteredFilmsList.length;

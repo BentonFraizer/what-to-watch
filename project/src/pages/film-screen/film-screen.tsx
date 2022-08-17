@@ -22,7 +22,7 @@ function FilmScreen(): JSX.Element | null {
     dispatch(fetchFilmAction(Number(id)));
     dispatch(fetchSimilarFilmsAction(Number(id)));
     dispatch(fetchCommentsAction(Number(id)));
-  }, []);
+  }, [dispatch, id]);
 
   const {similarFilmsList, film, comments, authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
 

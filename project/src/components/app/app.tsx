@@ -21,7 +21,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(checkAuthAction());
-  }, []);
+  }, [dispatch]);
 
   const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
 
