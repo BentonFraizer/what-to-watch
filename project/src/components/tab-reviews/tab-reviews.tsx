@@ -9,7 +9,91 @@ type TabReviewsProps = {
 
 function TabReviews(props: TabReviewsProps): JSX.Element {
   const {reviewsList} = props;
+  const reversedReviewsList = reviewsList.slice().reverse();
 
+  const getReviewsTemplate = (reviews: Comment[]) => {
+    if (reviews.length <= 3) {
+      return (
+        <div className="film-card__reviews film-card__row">
+          <div className="film-card__reviews-col">
+
+            {
+              reviews.map((review) => (
+                <React.Fragment key={review.id}>
+                  <div className="review">
+                    <blockquote className="review__quote">
+                      <p className="review__text">{review.comment}</p>
+
+                      <footer className="review__details">
+                        <cite className="review__author">{review.user.name}</cite>
+                        <time className="review__date" dateTime={review.date}>{dayjs(review.date).format('MMMM D, YYYY')}</time>
+                      </footer>
+                    </blockquote>
+
+                    <div className="review__rating">{review.rating}</div>
+                  </div>
+                </React.Fragment>
+              ))
+            }
+
+          </div>
+        </div>
+      );
+    }
+    if (reviews.length > 3) {
+      const firstColReviews = reviews.slice(0, 3);
+      const secondColReviews = reviews.slice(3, 6);
+
+      return (
+        <div className="film-card__reviews film-card__row">
+          <div className="film-card__reviews-col">
+
+            {
+              firstColReviews.map((review) => (
+                <React.Fragment key={review.id}>
+                  <div className="review">
+                    <blockquote className="review__quote">
+                      <p className="review__text">{review.comment}</p>
+
+                      <footer className="review__details">
+                        <cite className="review__author">{review.user.name}</cite>
+                        <time className="review__date" dateTime={review.date}>{dayjs(review.date).format('MMMM D, YYYY')}</time>
+                      </footer>
+                    </blockquote>
+
+                    <div className="review__rating">{review.rating}</div>
+                  </div>
+                </React.Fragment>
+              ))
+            }
+          </div>
+          <div className="film-card__reviews-col">
+            {
+              secondColReviews.map((review) => (
+                <React.Fragment key={review.id}>
+                  <div className="review">
+                    <blockquote className="review__quote">
+                      <p className="review__text">{review.comment}</p>
+
+                      <footer className="review__details">
+                        <cite className="review__author">{review.user.name}</cite>
+                        <time className="review__date" dateTime={review.date}>{dayjs(review.date).format('MMMM D, YYYY')}</time>
+                      </footer>
+                    </blockquote>
+
+                    <div className="review__rating">{review.rating}</div>
+                  </div>
+                </React.Fragment>
+              ))
+            }
+
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const reviewsTemplate = getReviewsTemplate(reversedReviewsList);
 
   return (
     <React.Fragment>
@@ -48,30 +132,8 @@ function TabReviews(props: TabReviewsProps): JSX.Element {
         </ul>
       </nav>
 
-      <div className="film-card__reviews film-card__row">
-        <div className="film-card__reviews-col">
+      {reviewsTemplate}
 
-          {
-            reviewsList.map((review) => (
-              <React.Fragment key={review.id}>
-                <div className="review">
-                  <blockquote className="review__quote">
-                    <p className="review__text">{review.comment}</p>
-
-                    <footer className="review__details">
-                      <cite className="review__author">{review.user.name}</cite>
-                      <time className="review__date" dateTime={review.date}>{dayjs(review.date).format('MMMM D, YYYY')}</time>
-                    </footer>
-                  </blockquote>
-
-                  <div className="review__rating">{review.rating}</div>
-                </div>
-              </React.Fragment>
-            ))
-          }
-
-        </div>
-      </div>
     </React.Fragment>
   );
 }
