@@ -58,9 +58,7 @@ function TabDetails({film, onTabClick}: TabDetailsProps): JSX.Element {
             <strong className="film-card__details-name">Starring</strong>
             <span className="film-card__details-value">
               {
-                film.starring.map((actor: string) => (
-                  `${actor}, \n`
-                ))
+                film.starring.join(', \n')
               }
             </span>
           </p>

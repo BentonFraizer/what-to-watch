@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { changeGenre } from '../../store/action';
 import { useAppDispatch } from '../../hooks/';
+import { AppRoute } from '../../consts';
 
 type LogoProps = {
   isInFooter?: boolean;
@@ -11,7 +12,7 @@ function Logo(props: LogoProps): JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <div className="logo">
-      <Link to="/" className={logoClassName}
+      <Link to={AppRoute.Main} className={logoClassName}
         onClick={() => {
           dispatch(changeGenre('All genres'));
         }}

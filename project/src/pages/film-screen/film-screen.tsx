@@ -26,14 +26,14 @@ function FilmScreen(): JSX.Element | null {
 
   const {similarFilmsList, film, comments, authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
 
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   if (isDataLoaded) {
     return (
       <LoadingScreen/>
     );
-  }
-
-  if (!film) {
-    return <NotFoundScreen/>;
   }
 
   const handleClick = (gettedDatasetValue: string | undefined) => {

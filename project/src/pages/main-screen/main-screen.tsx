@@ -9,6 +9,7 @@ import ShowMore from '../../components/show-more/show-more';
 import { changeGenre } from '../../store/action';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../consts';
 
 function MainScreen(): JSX.Element {
   const {filmsList, promoFilm} = useAppSelector((state) => state);
@@ -101,7 +102,7 @@ function MainScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to="/mylist" className="btn btn--list film-card__button" type="button">
+                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
