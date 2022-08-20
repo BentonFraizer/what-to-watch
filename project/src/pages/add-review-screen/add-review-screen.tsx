@@ -5,6 +5,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { useEffect } from 'react';
 import { fetchFilmAction } from '../../store/api-actions';
+import { getFilm } from '../../store/site-data/selectors';
 
 function AddReviewScreen(): JSX.Element | null {
   const {id} = useParams();
@@ -14,7 +15,7 @@ function AddReviewScreen(): JSX.Element | null {
     dispatch(fetchFilmAction(Number(id)));
   }, [dispatch, id]);
 
-  const { film } = useAppSelector((state) => state);
+  const film = useAppSelector(getFilm);
 
   if (!id) {
     return null;

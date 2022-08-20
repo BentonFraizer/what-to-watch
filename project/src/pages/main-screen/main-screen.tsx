@@ -10,11 +10,14 @@ import { changeGenre } from '../../store/site-process/site-process';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
+import { getFilms, getPromoFilm } from '../../store/site-data/selectors';
+import { getGenre } from '../../store/site-process/selectors';
 
 function MainScreen(): JSX.Element {
-  const {filmsList, promoFilm} = useAppSelector((state) => state);
+  const filmsList = useAppSelector(getFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
   const dispatch = useAppDispatch();
-  const currentGenre = useAppSelector((state) => state.genre);
+  const currentGenre = useAppSelector(getGenre);
 
   const filteredFilmsList = filmsList.filter((film) => {
     if (currentGenre === 'All genres') {

@@ -12,6 +12,8 @@ import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../consts';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { getSimilarFilmsList, getFilm, getComments, getLoadedDataStatus } from '../../store/site-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function FilmScreen(): JSX.Element | null {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -24,7 +26,11 @@ function FilmScreen(): JSX.Element | null {
     dispatch(fetchCommentsAction(Number(id)));
   }, [dispatch, id]);
 
-  const {similarFilmsList, film, comments, authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
+  const similarFilmsList = useAppSelector(getSimilarFilmsList);
+  const film = useAppSelector(getFilm);
+  const comments = useAppSelector(getComments);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
 
   if (!film) {
     return <NotFoundScreen/>;

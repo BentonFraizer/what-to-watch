@@ -15,6 +15,8 @@ import { isCheckedAuth } from '../../utils/utils';
 import browserHistory from '../../browser-history';
 import { checkAuthAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getLoadedDataStatus } from '../../store/site-data/selectors';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,7 +25,8 @@ function App(): JSX.Element {
     dispatch(checkAuthAction());
   }, [dispatch]);
 
-  const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
 
   if (isDataLoaded === true) {
     if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
