@@ -6,7 +6,7 @@ import GenresList from '../../components/genres-list/genres-list';
 import { getGenres } from '../../utils/utils';
 import { useState, useEffect } from 'react';
 import ShowMore from '../../components/show-more/show-more';
-import { changeGenre } from '../../store/action';
+import { changeGenre } from '../../store/site-process/site-process';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';

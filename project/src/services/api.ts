@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
 import { store } from '../store';
-import { setAvatarUrl } from '../store/action';
+import { setAvatarUrl } from '../store/site-process/site-process';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,

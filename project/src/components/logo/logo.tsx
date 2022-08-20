@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { changeGenre } from '../../store/action';
+import { changeGenre } from '../../store/site-process/site-process';
 import { useAppDispatch } from '../../hooks/';
 import { AppRoute } from '../../consts';
 

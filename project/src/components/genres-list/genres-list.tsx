@@ -1,4 +1,4 @@
-import { changeGenre } from '../../store/action';
+import { changeGenre } from '../../store/site-process/site-process';
 import { useAppDispatch } from '../../hooks/';
 
 type GenresListProps = {
