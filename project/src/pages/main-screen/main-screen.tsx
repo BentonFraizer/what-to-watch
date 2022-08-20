@@ -6,17 +6,38 @@ import GenresList from '../../components/genres-list/genres-list';
 import { getGenres } from '../../utils/utils';
 import { useState, useEffect } from 'react';
 import ShowMore from '../../components/show-more/show-more';
-import { applyFilter } from '../../store/action';
+import { changeGenre } from '../../store/site-process/site-process';
+import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../consts';
+import { getFilms, getPromoFilm } from '../../store/site-data/selectors';
+import { getGenre } from '../../store/site-process/selectors';
 
 function MainScreen(): JSX.Element {
-  const {filmsList, filteredFilmsList, promoFilm} = useAppSelector((state) => state);
-
+  const filmsList = useAppSelector(getFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
   const dispatch = useAppDispatch();
+  const currentGenre = useAppSelector(getGenre);
+
+  const filteredFilmsList = filmsList.filter((film) => {
+    if (currentGenre === 'All genres') {
+      return filmsList;
+    }
+    return film.genre === currentGenre;
+  }
+  );
 
   useEffect(() => {
-    dispatch(applyFilter('All genres'));
-  }, []);
+    if (filmsList.length === 0) {
+      dispatch(fetchFilmsAction());
+    }
+
+    if(!promoFilm) {
+      dispatch(fetchPromoFilmAction());
+    }
+
+    dispatch(changeGenre('All genres'));
+  }, [filmsList, dispatch, promoFilm]);
 
   const FILMS_COUNT_PER_STEP = 8;
   const filmsCount = filteredFilmsList.length;
@@ -52,7 +73,6 @@ function MainScreen(): JSX.Element {
   };
 
   const genres = getGenres(filmsList);
-  const currentGenre = useAppSelector((state) => state.genre);
 
   return (
     <>
@@ -85,7 +105,7 @@ function MainScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to="/mylist" className="btn btn--list film-card__button" type="button">
+                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>

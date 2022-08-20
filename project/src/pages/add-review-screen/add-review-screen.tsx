@@ -2,17 +2,24 @@ import Header from '../../components/header/header';
 import FormSendReview from '../../components/form-send-review/form-send-review';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { useEffect } from 'react';
+import { fetchFilmAction } from '../../store/api-actions';
+import { getFilm } from '../../store/site-data/selectors';
 
 function AddReviewScreen(): JSX.Element | null {
-  const {filmsList} = useAppSelector((state) => state);
   const {id} = useParams();
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFilmAction(Number(id)));
+  }, [dispatch, id]);
+
+  const film = useAppSelector(getFilm);
 
   if (!id) {
     return null;
   }
-
-  const film = filmsList.find((item) => item.id === parseInt(id, 10));
 
   if (!film) {
     return <NotFoundScreen/>;
