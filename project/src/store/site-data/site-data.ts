@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../consts';
 import { SiteData } from '../../types/state';
-import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction } from '../api-actions';
+import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction, fetchFavoriteFilmsAction } from '../api-actions';
 
 const initialState: SiteData = {
   filmsList: [],
@@ -10,6 +10,7 @@ const initialState: SiteData = {
   promoFilm: null,
   comments: [],
   isDataLoaded: true,
+  favoriteFilmsList: [],
 };
 
 export const siteData = createSlice({
@@ -57,6 +58,13 @@ export const siteData = createSlice({
         state.isDataLoaded = true;
       })
       .addCase(postCommentAction.fulfilled, (state) => {
+        state.isDataLoaded = false;
+      })
+      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
+        state.isDataLoaded = true;
+      })
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
+        state.favoriteFilmsList = action.payload;
         state.isDataLoaded = false;
       });
   },

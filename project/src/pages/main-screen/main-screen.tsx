@@ -7,17 +7,21 @@ import { getGenres } from '../../utils/utils';
 import { useState, useEffect } from 'react';
 import ShowMore from '../../components/show-more/show-more';
 import { changeGenre } from '../../store/site-process/site-process';
-import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
+import { fetchFilmsAction, fetchPromoFilmAction, fetchFavoriteFilmsAction, changeFilmStatusAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
-import { getFilms, getPromoFilm } from '../../store/site-data/selectors';
+import { getFilms, getPromoFilm, getFavoriteFilms } from '../../store/site-data/selectors';
 import { getGenre } from '../../store/site-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus, AppRoute } from '../../consts';
+import { redirectToRoute } from '../../store/action';
 
-function MainScreen(): JSX.Element {
+function MainScreen(): JSX.Element | null {
   const filmsList = useAppSelector(getFilms);
   const promoFilm = useAppSelector(getPromoFilm);
   const dispatch = useAppDispatch();
   const currentGenre = useAppSelector(getGenre);
+  const favoriteFilmsList = useAppSelector(getFavoriteFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const filteredFilmsList = filmsList.filter((film) => {
     if (currentGenre === 'All genres') {
@@ -37,6 +41,7 @@ function MainScreen(): JSX.Element {
     }
 
     dispatch(changeGenre('All genres'));
+    dispatch(fetchFavoriteFilmsAction());
   }, [filmsList, dispatch, promoFilm]);
 
   const FILMS_COUNT_PER_STEP = 8;
@@ -74,6 +79,41 @@ function MainScreen(): JSX.Element {
 
   const genres = getGenres(filmsList);
 
+  if (!promoFilm) {
+    return null;
+  }
+
+  //Функция для обновления изображения кнопки "My list"
+  const getFavoriteIcon = (filmStatus: boolean): JSX.Element => {
+    if (filmStatus) {
+      return (
+        <svg viewBox="0 0 18 14" width="18" height="14">
+          <use xlinkHref="#in-list"></use>
+        </svg>
+      );
+    }
+    return (
+      <svg viewBox="0 0 19 20" width="19" height="20">
+        <use xlinkHref="#add"></use>
+      </svg>
+    );
+  };
+  const favoriteIcon = getFavoriteIcon(promoFilm.isFavorite);
+
+  //Получение количества фильмов, добавленных в список "к просмотру"
+  let filmsAmount = favoriteFilmsList.length;
+  if (filmsAmount === undefined) {
+    filmsAmount = 0;
+  }
+
+  const getFilmsAmountToRender = (favoriteFimsAmount: number) => {
+    if (favoriteFimsAmount === 0) {
+      return 0;
+    }
+    return favoriteFimsAmount;
+  };
+  const filmsAmountToRender = getFilmsAmountToRender(filmsAmount);
+
   return (
     <>
       <section className="film-card">
@@ -105,13 +145,27 @@ function MainScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={() => {
+                    if (authorizationStatus !== AuthorizationStatus.Auth) {
+                      dispatch(redirectToRoute(AppRoute.SignIn));
+                    }
+                    dispatch(changeFilmStatusAction({
+                      filmId: promoFilm.id,
+                      status: Number(!promoFilm.isFavorite),
+                    }));
+                    dispatch(fetchPromoFilmAction());
+                    dispatch(fetchFavoriteFilmsAction());
+                  }}
+                >
+
+                  {favoriteIcon}
+
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
+                  <span className="film-card__count">{filmsAmountToRender}</span>
+                </button>
               </div>
             </div>
           </div>

@@ -1,17 +1,22 @@
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks/';
-import { getFilms } from '../../store/site-data/selectors';
+import { useAppSelector, useAppDispatch } from '../../hooks/';
+import { getFilm } from '../../store/site-data/selectors';
+import { useEffect } from 'react';
+import { fetchFilmAction } from '../../store/api-actions';
 
 function PlayerScreen(): JSX.Element | null {
-  const filmsList = useAppSelector(getFilms);
+  const dispatch = useAppDispatch();
+  const film = useAppSelector(getFilm);
   const {id} = useParams();
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(Number(id)));
+  }, [dispatch, id]);
 
   if (!id) {
     return null;
   }
-
-  const film = filmsList.find((item) => item.id === parseInt(id, 10));
 
   if (!film) {
     return <NotFoundScreen/>;

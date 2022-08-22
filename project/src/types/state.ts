@@ -9,6 +9,7 @@ export type SiteData = {
   promoFilm: Film | null,
   comments: Comment[];
   isDataLoaded: boolean,
+  favoriteFilmsList: Film[],
 }
 
 export type SiteProcess = {
