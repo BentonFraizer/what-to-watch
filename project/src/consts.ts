@@ -44,3 +44,10 @@ export enum NameSpace {
   Data = 'DATA',
   User = 'USER',
 }
+
+export const PROMO_FILM_ID = '1';
+
+export enum ProgressBar {
+  Start = 0,
+  End = 100,
+}

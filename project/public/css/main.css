@@ -1052,7 +1052,7 @@ main {
   cursor: pointer;
   position: absolute;
   left: 0;
-  top: 50%;
+  top: 75%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 

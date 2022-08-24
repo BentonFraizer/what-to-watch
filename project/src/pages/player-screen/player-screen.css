@@ -1,0 +1,9 @@
+.player__progress-setter {
+  width: 100%;
+  background: rgba(255,251,231,.35);
+  border-radius: 1px;
+  border: 0;
+  height: 4px;
+  display: block;
+  opacity: 0;
+}
