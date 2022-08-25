@@ -97,7 +97,7 @@ function PlayerScreen(): JSX.Element | null {
     <div className="player" >
       <video
         autoPlay
-        // muted
+        muted
         ref={videoRef}
         src={videoLink}
         className="player__video"

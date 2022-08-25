@@ -54,3 +54,29 @@ export const convertSecondsToTime = (value: string) => {
   return result;
 };
 
+export const validatePassword = (password:string): boolean => {
+  const NEEDED_ELEMENTS = 2;
+  const heededSimbols = new Map();
+  const separatedSymbols = Array.from(password);
+  separatedSymbols.forEach((symbol) => {
+    const regex = new RegExp(/[a-z]/i);
+    if (regex.test(symbol)) {
+      heededSimbols.set('hasLetter', true);
+    }
+  });
+
+  separatedSymbols.forEach((symbol) => {
+    const regex = new RegExp(/[0-9]/i);
+    if (regex.test(symbol)){
+      heededSimbols.set('hasNumber', true);
+    }
+  });
+
+  if (heededSimbols.size === NEEDED_ELEMENTS) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+
