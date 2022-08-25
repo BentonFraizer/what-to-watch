@@ -2,7 +2,8 @@ import React, { useState, FormEvent, useEffect } from 'react';
 import { RATING_NUMBERS } from '../../consts';
 import { PostCommentData } from '../../types/index';
 import { postCommentAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getLoadedDataStatus } from '../../store/site-data/selectors';
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 400;
@@ -12,13 +13,17 @@ type FormSendReviewProps = {
 }
 
 function FormSendReview({currentFilmId}: FormSendReviewProps) {
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
   const [formData, setFormData] = useState({
     rating: '',
     comment: '',
   });
 
   //Реализация активности/неактивности кнопки "Post"
+  const dispatch = useAppDispatch();
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+  const [disableFormInputs, setDisableFormInputs] = useState(false);
+
   useEffect(() => {
     if (formData.rating !== '' && formData.comment.length >= MIN_REVIEW_LENGTH && formData.comment.length <= MAX_REVIEW_LENGTH) {
       setIsSubmitButtonDisabled(false);
@@ -27,8 +32,15 @@ function FormSendReview({currentFilmId}: FormSendReviewProps) {
     }
   }, [formData.rating, formData.comment.length]);
 
-
-  const dispatch = useAppDispatch();
+  useEffect(()=> {
+    if (isDataLoaded){
+      setIsSubmitButtonDisabled(true);
+      setDisableFormInputs(true);
+    } else {
+      setIsSubmitButtonDisabled(false);
+      setDisableFormInputs(false);
+    }
+  }, [isDataLoaded, dispatch]);
 
   const handleOptionChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
@@ -68,7 +80,7 @@ function FormSendReview({currentFilmId}: FormSendReviewProps) {
             {
               RATING_NUMBERS.map((ratingNumber) => (
                 <React.Fragment key={ratingNumber}>
-                  <input key={ratingNumber} onChange={handleOptionChange} className="rating__input" id={`star-${ratingNumber}`} type="radio" name="rating" value={ratingNumber}/>
+                  <input key={ratingNumber} onChange={handleOptionChange} className="rating__input" id={`star-${ratingNumber}`} type="radio" name="rating" value={ratingNumber} disabled={disableFormInputs}/>
                   <label className="rating__label" htmlFor={`star-${ratingNumber}`}>{`Rating ${ratingNumber}`}</label>
                 </React.Fragment>
               ))
@@ -77,7 +89,7 @@ function FormSendReview({currentFilmId}: FormSendReviewProps) {
         </div>
 
         <div className="add-review__text">
-          <textarea onChange={handleTextareaChange} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+          <textarea onChange={handleTextareaChange} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" disabled={disableFormInputs}></textarea>
           <div className="add-review__submit">
             <button
               className="add-review__btn"
