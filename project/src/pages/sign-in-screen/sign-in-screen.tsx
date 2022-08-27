@@ -16,9 +16,12 @@ function SignInScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handlePasswordInput = (evt: FormEvent<HTMLInputElement>) => {
-    if ((passwordRef.current?.value as string).length <= MIN_PASSWORD_LENGHT || (passwordRef.current?.value as string) === '') {
+    if ((passwordRef.current?.value as string).length < MIN_PASSWORD_LENGHT || (passwordRef.current?.value as string) === '') {
       evt.preventDefault();
       setErrorMessage('The minimum password length is two symbols');
+      setErrorClass('sign-in__field--error');
+    } else if(!validatePassword(passwordRef.current?.value as string)){
+      setErrorMessage('The password must contain minimum one letter and one number');
       setErrorClass('sign-in__field--error');
     } else {
       setErrorMessage('');
@@ -45,7 +48,7 @@ function SignInScreen(): JSX.Element {
           password: passwordRef.current.value,
         });
       } else {
-        setErrorMessage('The password must contain one letter and one number');
+        setErrorMessage('The password must contain minimum one letter and one number');
         setErrorClass('sign-in__field--error');
       }
     }

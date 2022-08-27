@@ -23,7 +23,6 @@ function PlayerScreen(): JSX.Element | null {
 
 
   useEffect(() => {
-    videoRef.current?.play();
     dispatch(fetchFilmAction(Number(id)));
   }, [dispatch, id]);
 

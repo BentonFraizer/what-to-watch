@@ -32,17 +32,11 @@ function MainScreen(): JSX.Element | null {
   );
 
   useEffect(() => {
-    if (filmsList.length === 0) {
-      dispatch(fetchFilmsAction());
-    }
-
-    if(!promoFilm) {
-      dispatch(fetchPromoFilmAction());
-    }
-
+    dispatch(fetchFilmsAction());
+    dispatch(fetchPromoFilmAction());
     dispatch(changeGenre('All genres'));
     dispatch(fetchFavoriteFilmsAction());
-  }, [filmsList, dispatch, promoFilm]);
+  }, [dispatch]);
 
   const FILMS_COUNT_PER_STEP = 8;
   const filmsCount = filteredFilmsList.length;
