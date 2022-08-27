@@ -3,7 +3,10 @@ import { RATING_NUMBERS } from '../../consts';
 import { PostCommentData } from '../../types/index';
 import { postCommentAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getLoadedDataStatus } from '../../store/site-data/selectors';
+import { getLoadedDataStatus, getPostCommentError, getCommentSentStatus } from '../../store/site-data/selectors';
+import { resetPostCommentError, resetCommentSentSuccessfully } from '../../store/site-data/site-data';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 400;
@@ -14,15 +17,25 @@ type FormSendReviewProps = {
 
 function FormSendReview({currentFilmId}: FormSendReviewProps) {
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  const isPostCommentError = useAppSelector(getPostCommentError);
+  const isCommentSuccessfullySent = useAppSelector(getCommentSentStatus);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     rating: '',
     comment: '',
   });
 
-  //Реализация активности/неактивности кнопки "Post"
   const dispatch = useAppDispatch();
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
   const [disableFormInputs, setDisableFormInputs] = useState(false);
+
+  useEffect(() => {
+    if (isPostCommentError) {
+      toast.error('Error. The review wasn\'t sent. Try again later.');
+      dispatch(resetPostCommentError(false));
+    }
+  }, [isPostCommentError, dispatch]);
 
   useEffect(() => {
     if (formData.rating !== '' && formData.comment.length >= MIN_REVIEW_LENGTH && formData.comment.length <= MAX_REVIEW_LENGTH) {
@@ -40,7 +53,15 @@ function FormSendReview({currentFilmId}: FormSendReviewProps) {
       setIsSubmitButtonDisabled(false);
       setDisableFormInputs(false);
     }
-  }, [isDataLoaded, dispatch]);
+  }, [isDataLoaded]);
+
+  useEffect(() => {
+    if (isCommentSuccessfullySent) {
+      navigate(`/films/${currentFilmId}`);
+      toast.info('The review was successfully sent.');
+    }
+    dispatch(resetCommentSentSuccessfully(false));
+  }, [isCommentSuccessfullySent, dispatch, currentFilmId, navigate]);
 
   const handleOptionChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;

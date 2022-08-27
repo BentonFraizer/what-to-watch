@@ -8,8 +8,12 @@ export type SiteData = {
   similarFilmsList: Film[],
   promoFilm: Film | null,
   comments: Comment[];
+  isCommentSentSuccessfully: boolean,
   isDataLoaded: boolean,
   favoriteFilmsList: Film[],
+  error: {
+    postComment: boolean,
+  },
 }
 
 export type SiteProcess = {

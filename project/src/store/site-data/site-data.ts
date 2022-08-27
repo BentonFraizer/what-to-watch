@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../consts';
 import { SiteData } from '../../types/state';
-import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction, fetchFavoriteFilmsAction } from '../api-actions';
+import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction, fetchFavoriteFilmsAction, } from '../api-actions';
 
 const initialState: SiteData = {
   filmsList: [],
@@ -9,14 +9,25 @@ const initialState: SiteData = {
   similarFilmsList: [],
   promoFilm: null,
   comments: [],
+  isCommentSentSuccessfully: false,
   isDataLoaded: true,
   favoriteFilmsList: [],
+  error: {
+    postComment: false,
+  },
 };
 
 export const siteData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    resetPostCommentError: (state, action) => {
+      state.error.postComment = action.payload;
+    },
+    resetCommentSentSuccessfully: (state, action) => {
+      state.isCommentSentSuccessfully = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFilmsAction.pending, (state) => {
@@ -58,7 +69,12 @@ export const siteData = createSlice({
         state.isDataLoaded = true;
       })
       .addCase(postCommentAction.fulfilled, (state) => {
+        state.isCommentSentSuccessfully = true;
         state.isDataLoaded = false;
+      })
+      .addCase(postCommentAction.rejected, (state) => {
+        state.isDataLoaded = false;
+        state.error.postComment = true;
       })
       .addCase(fetchFavoriteFilmsAction.pending, (state) => {
         state.isDataLoaded = true;
@@ -69,3 +85,5 @@ export const siteData = createSlice({
       });
   },
 });
+
+export const { resetPostCommentError, resetCommentSentSuccessfully } = siteData.actions;
