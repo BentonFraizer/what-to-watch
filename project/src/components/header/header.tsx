@@ -12,17 +12,9 @@ type HeaderProps = {
 }
 
 function Header(props: HeaderProps): JSX.Element {
-  let filmsAmount = props.filmsAmount;
-  if (filmsAmount === undefined) {
-    filmsAmount = 0;
-  }
+  const filmsAmount = props.filmsAmount ?? 0;
 
-  const getFilmsAmountToRender = (favoriteFimsAmount: number) => {
-    if (favoriteFimsAmount === 0) {
-      return 0;
-    }
-    return favoriteFimsAmount;
-  };
+  const getFilmsAmountToRender = (favoriteFimsAmount: number) => favoriteFimsAmount === 0 ? 0 : favoriteFimsAmount;
 
   const filmsAmountToRender = getFilmsAmountToRender(filmsAmount);
 

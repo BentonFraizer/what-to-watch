@@ -3,7 +3,7 @@ import { RATING_NUMBERS } from '../../consts';
 import { PostCommentData } from '../../types/index';
 import { postCommentAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getLoadedDataStatus, getPostCommentError, getCommentSentStatus } from '../../store/site-data/selectors';
+import { getDataLoadedStatus, getPostCommentError, getCommentSentStatus } from '../../store/site-data/selectors';
 import { resetPostCommentError, resetCommentSentSuccessfully } from '../../store/site-data/site-data';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ type FormSendReviewProps = {
 }
 
 function FormSendReview({currentFilmId}: FormSendReviewProps) {
-  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
   const isPostCommentError = useAppSelector(getPostCommentError);
   const isCommentSuccessfullySent = useAppSelector(getCommentSentStatus);
   const navigate = useNavigate();

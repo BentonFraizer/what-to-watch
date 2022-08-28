@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../consts';
 import { SiteData } from '../../types/state';
-import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction, fetchFavoriteFilmsAction, } from '../api-actions';
+import { fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchPromoFilmAction, fetchCommentsAction, postCommentAction, fetchFavoriteFilmsAction, changeFilmStatusAction } from '../api-actions';
 
 const initialState: SiteData = {
   filmsList: [],
@@ -12,6 +12,7 @@ const initialState: SiteData = {
   isCommentSentSuccessfully: false,
   isDataLoaded: true,
   favoriteFilmsList: [],
+  isFavoriteStatusChanged: false,
   error: {
     postComment: false,
   },
@@ -26,6 +27,9 @@ export const siteData = createSlice({
     },
     resetCommentSentSuccessfully: (state, action) => {
       state.isCommentSentSuccessfully = action.payload;
+    },
+    resetFavoriteStatus: (state, action) => {
+      state.isFavoriteStatusChanged = action.payload;
     }
   },
   extraReducers(builder) {
@@ -82,8 +86,14 @@ export const siteData = createSlice({
       .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
         state.favoriteFilmsList = action.payload;
         state.isDataLoaded = false;
+      })
+      .addCase(changeFilmStatusAction.pending, (state) => {
+        state.isFavoriteStatusChanged = false;
+      })
+      .addCase(changeFilmStatusAction.fulfilled, (state) => {
+        state.isFavoriteStatusChanged = true;
       });
   },
 });
 
-export const { resetPostCommentError, resetCommentSentSuccessfully } = siteData.actions;
+export const { resetPostCommentError, resetCommentSentSuccessfully, resetFavoriteStatus } = siteData.actions;

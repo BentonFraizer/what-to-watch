@@ -11,6 +11,7 @@ export type SiteData = {
   isCommentSentSuccessfully: boolean,
   isDataLoaded: boolean,
   favoriteFilmsList: Film[],
+  isFavoriteStatusChanged: boolean,
   error: {
     postComment: boolean,
   },

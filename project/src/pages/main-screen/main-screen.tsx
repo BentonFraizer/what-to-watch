@@ -9,7 +9,8 @@ import ShowMore from '../../components/show-more/show-more';
 import { changeGenre } from '../../store/site-process/site-process';
 import { fetchFilmsAction, fetchPromoFilmAction, fetchFavoriteFilmsAction, changeFilmStatusAction } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
-import { getFilms, getPromoFilm, getFavoriteFilms } from '../../store/site-data/selectors';
+import { getFilms, getPromoFilm, getFavoriteFilms, getFavoriteStatusChange } from '../../store/site-data/selectors';
+import { resetFavoriteStatus } from '../../store/site-data/site-data';
 import { getGenre } from '../../store/site-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus, AppRoute } from '../../consts';
@@ -22,6 +23,7 @@ function MainScreen(): JSX.Element | null {
   const currentGenre = useAppSelector(getGenre);
   const favoriteFilmsList = useAppSelector(getFavoriteFilms);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteChangeStatus = useAppSelector(getFavoriteStatusChange);
 
   const filteredFilmsList = filmsList.filter((film) => {
     if (currentGenre === 'All genres') {
@@ -37,6 +39,14 @@ function MainScreen(): JSX.Element | null {
     dispatch(changeGenre('All genres'));
     dispatch(fetchFavoriteFilmsAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (favoriteChangeStatus) {
+      dispatch(fetchFavoriteFilmsAction());
+      dispatch(fetchPromoFilmAction());
+      dispatch(resetFavoriteStatus(false));
+    }
+  }, [dispatch, favoriteChangeStatus]);
 
   const FILMS_COUNT_PER_STEP = 8;
   const filmsCount = filteredFilmsList.length;
@@ -95,17 +105,8 @@ function MainScreen(): JSX.Element | null {
   const favoriteIcon = getFavoriteIcon(promoFilm.isFavorite);
 
   //Получение количества фильмов, добавленных в список "к просмотру"
-  let filmsAmount = favoriteFilmsList.length;
-  if (filmsAmount === undefined) {
-    filmsAmount = 0;
-  }
-
-  const getFilmsAmountToRender = (favoriteFimsAmount: number) => {
-    if (favoriteFimsAmount === 0) {
-      return 0;
-    }
-    return favoriteFimsAmount;
-  };
+  const filmsAmount = favoriteFilmsList.length ?? 0;
+  const getFilmsAmountToRender = (favoriteFimsAmount: number) => favoriteFimsAmount === 0 ? 0 : favoriteFimsAmount;
   const filmsAmountToRender = getFilmsAmountToRender(filmsAmount);
 
   return (
@@ -150,8 +151,6 @@ function MainScreen(): JSX.Element | null {
                       filmId: promoFilm.id,
                       status: Number(!promoFilm.isFavorite),
                     }));
-                    dispatch(fetchPromoFilmAction());
-                    dispatch(fetchFavoriteFilmsAction());
                   }}
                 >
 
