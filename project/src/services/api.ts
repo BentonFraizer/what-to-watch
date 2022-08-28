@@ -15,8 +15,10 @@ const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[resp
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
+const NOT_FOUND = 404;
 
 export const createAPI = (): AxiosInstance => {
+
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -39,7 +41,9 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response && shouldDisplayError(error.response)) {
+      if (error.response?.status === NOT_FOUND) {
+        toast.error('Service not avaliable at the moment. Try again later.');
+      } else if (error.response && shouldDisplayError(error.response)) {
         toast.error(error.response.data.error);
       }
 
