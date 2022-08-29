@@ -2,10 +2,10 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { Film, Comment } from '../types';
-import { postComment, redirectToRoute } from './action';
+import { postComment, redirectToRoute, changeFilmStatus } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AppRoute } from '../consts';
-import { AuthData, UserData, PostCommentData } from '../types';
+import { AuthData, UserData, PostCommentData, ChangeFilmStatusData } from '../types';
 
 // Запрос всех фильмов
 export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
@@ -14,9 +14,13 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   extra: AxiosInstance
 }>(
   'data/fetchFilms',
-  async (_arg, {extra: api}) => {
-    const {data} = await api.get<Film[]>(APIRoute.Films);
-    return data;
+  async (_arg, {rejectWithValue, dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Film[]>(APIRoute.Films);
+      return data;
+    } catch (error) {
+      return rejectWithValue(dispatch(redirectToRoute(AppRoute.Offline)));
+    }
   },
 );
 
@@ -82,6 +86,32 @@ export const postCommentAction = createAsyncThunk<void, PostCommentData, {
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
     const {data} = await api.post<PostCommentData>(`${APIRoute.Comments}${filmId}`, {comment, rating});
     dispatch(postComment(data));
+  },
+);
+
+//Запрос списка фильмов "к просмотру"
+export const fetchFavoriteFilmsAction = createAsyncThunk<Film[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavoriteFilms',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+//Изменение статуса "к просмотру" у фильма
+export const changeFilmStatusAction = createAsyncThunk<void, ChangeFilmStatusData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/changeFilmStatus',
+  async ({filmId, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<ChangeFilmStatusData>(`${APIRoute.Favorite}/${filmId}/${status}`, {filmId, status});
+    dispatch(changeFilmStatus(data));
   },
 );
 

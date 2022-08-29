@@ -4,7 +4,8 @@ export enum AppRoute {
   MyList = '/mylist',
   Film = '/films/:id',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  Offline = '/offline',
 }
 
 export enum AuthorizationStatus {
@@ -35,11 +36,17 @@ export enum APIRoute {
   Logout = '/logout',
   Promo = '/promo',
   Film = '/films/',
-  Comments = '/comments/'
+  Comments = '/comments/',
+  Favorite = '/favorite',
 }
 
 export enum NameSpace {
   Site = 'SITE',
   Data = 'DATA',
   User = 'USER',
+}
+
+export enum ProgressBar {
+  Start = 0,
+  End = 100,
 }

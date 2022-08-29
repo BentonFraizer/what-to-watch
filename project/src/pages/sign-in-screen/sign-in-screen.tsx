@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-
-import { useRef, FormEvent } from 'react';
+import { validatePassword } from '../../utils/utils';
+import { useRef, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types';
@@ -9,9 +9,25 @@ import { AuthData } from '../../types';
 function SignInScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorClass, setErrorClass] = useState('');
+  const MIN_PASSWORD_LENGHT = 2;
 
   const dispatch = useAppDispatch();
 
+  const handlePasswordInput = (evt: FormEvent<HTMLInputElement>) => {
+    if ((passwordRef.current?.value as string).length < MIN_PASSWORD_LENGHT || (passwordRef.current?.value as string) === '') {
+      evt.preventDefault();
+      setErrorMessage('The minimum password length is two symbols');
+      setErrorClass('sign-in__field--error');
+    } else if(!validatePassword(passwordRef.current?.value as string)){
+      setErrorMessage('The password must contain minimum one letter and one number');
+      setErrorClass('sign-in__field--error');
+    } else {
+      setErrorMessage('');
+      setErrorClass('');
+    }
+  };
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -19,12 +35,22 @@ function SignInScreen(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    if ((passwordRef.current?.value as string) === '') {
+      evt.preventDefault();
+      setErrorMessage('The minimum password length is two symbols');
+      setErrorClass('sign-in__field--error');
+    }
 
-    if(emailRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        eMail: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
+    if (emailRef.current !== null && passwordRef.current !== null && (passwordRef.current?.value as string).length >= MIN_PASSWORD_LENGHT && (passwordRef.current?.value as string) !== '') {
+      if(validatePassword(passwordRef.current?.value)){
+        onSubmit({
+          eMail: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+      } else {
+        setErrorMessage('The password must contain minimum one letter and one number');
+        setErrorClass('sign-in__field--error');
+      }
     }
   };
 
@@ -37,6 +63,9 @@ function SignInScreen(): JSX.Element {
           className='sign-in__form'
           onSubmit={handleSubmit}
         >
+          <div className="sign-in__message">
+            <p>{errorMessage}</p>
+          </div>
           <div className='sign-in__fields'>
             <div className='sign-in__field'>
               <input
@@ -49,7 +78,7 @@ function SignInScreen(): JSX.Element {
               />
               <label className='sign-in__label visually-hidden' htmlFor='user-email'>Email address</label>
             </div>
-            <div className='sign-in__field'>
+            <div className={`sign-in__field ${errorClass}`}>
               <input
                 ref={passwordRef}
                 className='sign-in__input'
@@ -57,6 +86,7 @@ function SignInScreen(): JSX.Element {
                 placeholder='Password'
                 name='user-password'
                 id='user-password'
+                onInput={handlePasswordInput}
               />
               <label className='sign-in__label visually-hidden' htmlFor='user-password'>Password</label>
             </div>

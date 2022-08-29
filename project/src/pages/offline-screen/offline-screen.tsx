@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
 import { AppRoute } from '../../consts';
-import './not-found-screen.css';
+import './offline-screen.css';
 
-function NotFoundScreen(): JSX.Element {
+function OfflineScreen(): JSX.Element {
   return (
     <div className="user-page">
-      <Header/>
 
       <div className="user-page__content">
         <div className="user-page__title">
-          <b>404</b>
-          <p>Page not found</p>
+          <p>The service is not available at the moment.</p>
+          <p>Try again later.</p>
           <Link className='user-page__link' to={AppRoute.Main} >
-            Go to Main page
+            Main page
           </Link>
         </div>
       </div>
@@ -24,4 +22,4 @@ function NotFoundScreen(): JSX.Element {
   );
 }
 
-export default NotFoundScreen;
+export default OfflineScreen;

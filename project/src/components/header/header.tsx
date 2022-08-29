@@ -8,9 +8,16 @@ type HeaderProps = {
   isInSignIn?: boolean;
   isInAddReview?: boolean;
   film?: Film;
+  filmsAmount?: number | undefined;
 }
 
 function Header(props: HeaderProps): JSX.Element {
+  const filmsAmount = props.filmsAmount ?? 0;
+
+  const getFilmsAmountToRender = (favoriteFimsAmount: number) => favoriteFimsAmount === 0 ? 0 : favoriteFimsAmount;
+
+  const filmsAmountToRender = getFilmsAmountToRender(filmsAmount);
+
   return (
     <header className="page-header user-page__head">
       <Logo/>
@@ -26,7 +33,7 @@ function Header(props: HeaderProps): JSX.Element {
         </ul>
       </nav> }
 
-      {props.isInMyList && <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>}
+      {props.isInMyList && <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{filmsAmountToRender}</span></h1>}
 
       {props.isInSignIn && <h1 className="page-title user-page__title">Sign in</h1>}
       {!props.isInSignIn && <UserBlock/>}
