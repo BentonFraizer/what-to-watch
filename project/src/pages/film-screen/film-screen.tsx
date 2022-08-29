@@ -11,7 +11,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction, changeFilmStatusAction, fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getSimilarFilmsList, getFilm, getComments, getFavoriteFilms, getFavoriteStatusChange } from '../../store/site-data/selectors';
-import { resetFavoriteStatus } from '../../store/site-data/site-data';
+import { resetFavoriteStatus, resetFilmData } from '../../store/site-data/site-data';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { redirectToRoute } from '../../store/action';
 
@@ -34,6 +34,10 @@ function FilmScreen(): JSX.Element | null {
     dispatch(fetchSimilarFilmsAction(Number(id)));
     dispatch(fetchCommentsAction(Number(id)));
     dispatch(fetchFavoriteFilmsAction());
+
+    return () => {
+      dispatch(resetFilmData());
+    };
 
   }, [dispatch, id]);
 

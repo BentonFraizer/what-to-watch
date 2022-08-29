@@ -30,6 +30,9 @@ export const siteData = createSlice({
     },
     resetFavoriteStatus: (state, action) => {
       state.isFavoriteStatusChanged = action.payload;
+    },
+    resetFilmData: (state) => {
+      state.film = null;
     }
   },
   extraReducers(builder) {
@@ -96,4 +99,4 @@ export const siteData = createSlice({
   },
 });
 
-export const { resetPostCommentError, resetCommentSentSuccessfully, resetFavoriteStatus } = siteData.actions;
+export const { resetPostCommentError, resetCommentSentSuccessfully, resetFavoriteStatus, resetFilmData } = siteData.actions;
