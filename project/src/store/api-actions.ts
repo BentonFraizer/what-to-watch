@@ -14,9 +14,13 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   extra: AxiosInstance
 }>(
   'data/fetchFilms',
-  async (_arg, {extra: api}) => {
-    const {data} = await api.get<Film[]>(APIRoute.Films);
-    return data;
+  async (_arg, {rejectWithValue, dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Film[]>(APIRoute.Films);
+      return data;
+    } catch (error) {
+      return rejectWithValue(dispatch(redirectToRoute(AppRoute.Offline)));
+    }
   },
 );
 

@@ -8,6 +8,7 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import OfflineScreen from '../../pages/offline-screen/offline-screen';
 import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
@@ -17,6 +18,7 @@ import { checkAuthAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getDataLoadedStatus } from '../../store/site-data/selectors';
+
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -85,6 +87,12 @@ function App(): JSX.Element {
           path={AppRoute.Player}
           element={
             <PlayerScreen />
+          }
+        />
+        <Route
+          path={AppRoute.Offline}
+          element={
+            <OfflineScreen />
           }
         />
         <Route
