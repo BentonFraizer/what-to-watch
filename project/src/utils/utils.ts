@@ -25,23 +25,26 @@ export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean
 //Функция для преобразования количества секунд в необходимый формат
 //Функция позаимствована с сайта "https://russianblogs.com/article/6472332881/" и адаптирована;
 export const convertSecondsToTime = (value: string) => {
+  const SECONDS_IN_MINUTE = 60;
+  const MINUTES_IN_HOUR = 60;
+
   if(value === undefined || value === '0') {
     return '00:00';
   }
   let secondsTime = parseInt(value, 10);
   let minutesTime = 0;
   let hoursTime = 0;
-  if (secondsTime >= 60) {
-    minutesTime = parseInt(String(secondsTime / 60), 10);
-    secondsTime = parseInt(String(secondsTime % 60), 10);
-    if(minutesTime >= 60) {
-      hoursTime = parseInt(String(minutesTime / 60), 10);
-      minutesTime = parseInt(String(minutesTime % 60), 10);
+  if (secondsTime >= SECONDS_IN_MINUTE) {
+    minutesTime = parseInt(String(secondsTime / SECONDS_IN_MINUTE), 10);
+    secondsTime = parseInt(String(secondsTime % SECONDS_IN_MINUTE), 10);
+    if(minutesTime >= MINUTES_IN_HOUR) {
+      hoursTime = parseInt(String(minutesTime / MINUTES_IN_HOUR), 10);
+      minutesTime = parseInt(String(minutesTime % MINUTES_IN_HOUR), 10);
     }
   }
   let result = `${secondsTime.toString().padStart(2, '0')}`;
 
-  if ((Number(value) - 60) < 0 ) {
+  if ((Number(value) - SECONDS_IN_MINUTE) < 0 ) {
     result = `00:${secondsTime.toString().padStart(2, '0')}`;
   }
 

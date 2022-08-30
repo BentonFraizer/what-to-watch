@@ -10,23 +10,33 @@ type TabOverviewProps = {
 function TabOverview(props: TabOverviewProps): JSX.Element {
   const film = props.film;
   const getTextRating = (rating: number): string => {
-    if (rating >= 0 && rating <= 3) {
+    const RATING_BAD_FROM = 0;
+    const RATING_BAD_TO = 3;
+    const RATING_NORMAL_FROM = 3;
+    const RATING_NORMAL_TO = 5;
+    const RATING_GOOD_FROM = 5;
+    const RATING_GOOD_TO = 8;
+    const RATING_VERY_GOOD_FROM = 8;
+    const RATING_VERY_GOOD_TO = 10;
+    const RATING_AWESOME = 10;
+
+    if (rating >= RATING_BAD_FROM && rating <= RATING_BAD_TO) {
       return Rating.Bad;
     }
 
-    if (rating >= 3 && rating <= 5) {
+    if (rating >= RATING_NORMAL_FROM && rating <= RATING_NORMAL_TO) {
       return Rating.Normal;
     }
 
-    if (rating >= 5 && rating <= 8) {
+    if (rating >= RATING_GOOD_FROM && rating <= RATING_GOOD_TO) {
       return Rating.Good;
     }
 
-    if (rating >= 5 && rating < 10) {
+    if (rating >= RATING_VERY_GOOD_FROM && rating < RATING_VERY_GOOD_TO) {
       return Rating.VeryGood;
     }
 
-    if (rating === 10) {
+    if (rating === RATING_AWESOME) {
       return Rating.Awesome;
     }
     return '';

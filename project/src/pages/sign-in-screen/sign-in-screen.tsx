@@ -11,12 +11,12 @@ function SignInScreen(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [errorClass, setErrorClass] = useState('');
-  const MIN_PASSWORD_LENGHT = 2;
+  const MIN_PASSWORD_LENGTH = 2;
 
   const dispatch = useAppDispatch();
 
   const handlePasswordInput = (evt: FormEvent<HTMLInputElement>) => {
-    if ((passwordRef.current?.value as string).length < MIN_PASSWORD_LENGHT || (passwordRef.current?.value as string) === '') {
+    if ((passwordRef.current?.value as string).length < MIN_PASSWORD_LENGTH || (passwordRef.current?.value as string) === '') {
       evt.preventDefault();
       setErrorMessage('The minimum password length is two symbols');
       setErrorClass('sign-in__field--error');
@@ -41,7 +41,7 @@ function SignInScreen(): JSX.Element {
       setErrorClass('sign-in__field--error');
     }
 
-    if (emailRef.current !== null && passwordRef.current !== null && (passwordRef.current?.value as string).length >= MIN_PASSWORD_LENGHT && (passwordRef.current?.value as string) !== '') {
+    if (emailRef.current !== null && passwordRef.current !== null && (passwordRef.current?.value as string).length >= MIN_PASSWORD_LENGTH && (passwordRef.current?.value as string) !== '') {
       if(validatePassword(passwordRef.current?.value)){
         onSubmit({
           eMail: emailRef.current.value,
