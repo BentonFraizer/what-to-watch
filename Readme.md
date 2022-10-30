@@ -13,9 +13,10 @@ The app allows to:
 - **leave reviews** after login;
 - **watch preview** of the film after hover on small film card;
 
-<a href="https://bentonfraizer.github.io/what-to-watch/" target="_blank">Check the Demo</a>
+[Check the Demo](https://bentonfraizer.github.io/what-to-watch/)
 
 <img src="https://github.com/BentonFraizer/what-to-watch/blob/master/.github/workflows/what-to-whatch.png" width="769" />
+
 
 ### Stack 
 - React (TypeScript)
