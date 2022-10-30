@@ -2,7 +2,7 @@
 
 ### About project
 
-"What to Watch" is a new generation online cinema. Watch new films absolutely for free and in the best quality. Leave reviews, rate and choose only the best from the world of big cinema.
+"What to watch" is a new generation online cinema. Watch new films absolutely for free and in the best quality. Leave reviews, rate and choose only the best from the world of big cinema.
 
 The app allows to:
 
