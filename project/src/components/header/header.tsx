@@ -25,10 +25,10 @@ function Header(props: HeaderProps): JSX.Element {
       <nav className="breadcrumbs">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
-            <Link to={`/films/${props.film?.id}`} className="breadcrumbs__link">{props.film?.name}</Link>
+            <Link to={`/what-to-watch/films/${props.film?.id}`} className="breadcrumbs__link">{props.film?.name}</Link>
           </li>
           <li className="breadcrumbs__item">
-            <Link to={`/films/${props.film?.id}/review`} className="breadcrumbs__link">Add review</Link>
+            <Link to={`/what-to-watch/films/${props.film?.id}/review`} className="breadcrumbs__link">Add review</Link>
           </li>
         </ul>
       </nav> }

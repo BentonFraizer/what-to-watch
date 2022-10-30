@@ -18,7 +18,7 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
       onMouseEnter = {() => props.onMouseEnterCard(id)}
       onMouseLeave = {() => props.onMouseLeaveCard()}
     >
-      <Link className="small-film-card__link" to={`/films/${id}`}>
+      <Link className="small-film-card__link" to={`/what-to-watch/films/${id}`}>
         {activeCardId === id &&
           <VideoPlayer
             width="265"
@@ -34,7 +34,7 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
           </div>}
       </Link>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`/what-to-watch/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );

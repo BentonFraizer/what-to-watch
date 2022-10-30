@@ -57,7 +57,7 @@ function FormSendReview({currentFilmId}: FormSendReviewProps) {
 
   useEffect(() => {
     if (isCommentSuccessfullySent) {
-      navigate(`/films/${currentFilmId}`);
+      navigate(`/what-to-watch/films/${currentFilmId}`);
       toast.info('The review was successfully sent.');
     }
     dispatch(resetCommentSentSuccessfully(false));

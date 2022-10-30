@@ -114,7 +114,7 @@ function FilmScreen(): JSX.Element | null {
               </p>
 
               <div className="film-card__buttons">
-                <Link to={`/player/${film.id}`} className="btn btn--play film-card__button" type="button">
+                <Link to={`/what-to-watch/player/${film.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -141,7 +141,7 @@ function FilmScreen(): JSX.Element | null {
                   <span className="film-card__count">{filmsAmountToRender}</span>
                 </button>
                 {authorizationStatus === AuthorizationStatus.Auth &&
-                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
+                  <Link to={`/what-to-watch/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>

@@ -23,7 +23,7 @@ function TabDetails({film, onTabClick}: TabDetailsProps): JSX.Element {
               }
             }
           >
-            <Link to={`/films/${film.id}`} data-film-tab='Overview' className="film-nav__link">Overview</Link>
+            <Link to={`/what-to-watch/films/${film.id}`} data-film-tab='Overview' className="film-nav__link">Overview</Link>
           </li>
           <li className="film-nav__item film-nav__item--active"
             onClick={
