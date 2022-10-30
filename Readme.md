@@ -13,7 +13,7 @@ The app allows to:
 - **leave reviews** after login;
 - **watch preview** of the film after hover on small film card;
 
-[Check the Demo](https://external.ink?to=/https://bentonfraizer.github.io/what-to-watch/)
+[Check the Demo](https://external.ink?to=/bentonfraizer.github.io/what-to-watch/)
 
 <img src="https://github.com/BentonFraizer/what-to-watch/blob/master/.github/workflows/what-to-whatch.png" width="769" />
 
