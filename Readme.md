@@ -1,49 +1,36 @@
-# Личный проект «Что посмотреть»
+# What to watch
 
-* Студент: [Юрий Лопухин](https://up.htmlacademy.ru/react/10/user/704309).
-* Наставник: [Евгений Фаллер](https://htmlacademy.ru/profile/id505933).
+### About project
 
----
+"What to Watch" is a new generation online cinema. Watch new films absolutely for free and in the best quality. Leave reviews, rate and choose only the best from the world of big cinema.
 
-_Не удаляйте и не изменяйте папки и файлы:_
-_`.editorconfig`, `.gitattributes`, `.gitignore`._
+The app allows to:
 
----
+- **watch**, **play**, **pause**, **fullscreen** every film by the videoplayer;
+- **add** favorite film in My List;
+- **filter** films by genre;
+- **login** in profile;
+- **leave reviews** after login;
+- **watch preview** of the film after hover on small film card;
 
-### Памятка
+<a href="https://bentonfraizer.github.io/what-to-watch/" target="_blank" rel="noopener noreferrer">Check the Demo</a>
 
-#### 1. Зарегистрируйтесь на Гитхабе
+<img src="https://github.com/BentonFraizer/what-to-watch/blob/master/.github/workflows/what-to-whatch.png" width="769" />
 
-Если у вас ещё нет аккаунта на [github.com](https://github.com/join), скорее зарегистрируйтесь.
+### Stack 
+- React (TypeScript)
+- React Router v.6
+- Redux
+- Webpack
 
-#### 2. Создайте форк
+### ⚙️ How To Run Locally
 
-Откройте репозиторий и нажмите кнопку «Fork» в правом верхнем углу. Репозиторий из Академии будет скопирован в ваш аккаунт.
-
-<img width="769" alt="Press 'Fork'" src="https://cloud.githubusercontent.com/assets/259739/20264045/a1ddbf40-aa7a-11e6-9a1a-724a1c0123c8.png">
-
-Получится вот так:
-
-<img width="769" alt="Forked" src="https://cloud.githubusercontent.com/assets/259739/20264122/f63219a6-aa7a-11e6-945a-89818fc7c014.png">
-
-#### 3. Клонируйте репозиторий на свой компьютер
-
-Будьте внимательны: нужно клонировать свой репозиторий (форк), а не репозиторий Академии. Также обратите внимание, что клонировать репозиторий нужно через SSH, а не через HTTPS. Нажмите зелёную кнопку в правой части экрана, чтобы скопировать SSH-адрес вашего репозитория:
-
-<img width="769" alt="SSH" src="https://cloud.githubusercontent.com/assets/259739/20264180/42704126-aa7b-11e6-9ab4-73372b812a53.png">
-
-Клонировать репозиторий можно так:
-
+1. clone repo
+2. install all dependencies with:
 ```
-git clone SSH-адрес_вашего_форка
+npm install
 ```
-
-Команда клонирует репозиторий на ваш компьютер и подготовит всё необходимое для старта работы.
-
-#### 4. Начинайте обучение!
-
----
-
-<a href="https://htmlacademy.ru/intensive/react"><img align="left" width="50" height="50" title="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/react/logo-for-github.png"></a>
-
-Репозиторий создан для обучения на профессиональном онлайн‑курсе «[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).
+3. run in the **dev** mode with:
+```
+npm start
+```
